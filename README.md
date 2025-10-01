@@ -2,6 +2,10 @@
 My PHP Project
 
 - Routes
+- Layout
+
+# Required
+- Composer: https://getcomposer.org/
 
 # Open terminal and run
 - composer dump-autoload
