@@ -18,68 +18,69 @@ class Router
     protected function addRoute(string $method, string $uri, $action): void
     {
         $uri = $this->normalize($uri);
-        $this->routes[$method][$uri] = $action;
+
+        // Convert {param} parts to regex
+        $pattern = preg_replace('#\{([a-zA-Z_][a-zA-Z0-9_]*)\}#', '(?P<\1>[^/]+)', $uri);
+        $pattern = '#^' . $pattern . '$#';
+
+        $this->routes[$method][] = [
+            'pattern' => $pattern,
+            'action'  => $action
+        ];
     }
 
-    /**
-     * Normalize a given URI (remove duplicate slashes, trailing slash except root, ensure leading slash).
-     */
     protected function normalize(string $uri): string
     {
-        // If a full URI is received, omit the query part.
         $path = parse_url($uri, PHP_URL_PATH) ?? $uri;
-
-        // Start with a single prefix slash, trimming the /s inside
         $path = '/' . trim($path, '/');
-
-        // If root, directly "/"
-        if ($path === '/' || $path === '/.') {
-            return '/';
-        }
-
-        // Remove trailing slash (except root)
-        return rtrim($path, '/');
+        return $path === '/' ? '/' : rtrim($path, '/');
     }
 
     public function dispatch(string $uri, string $method): void
     {
         $uri = $this->normalize($uri);
         $methodRoutes = $this->routes[$method] ?? [];
-        $action = $methodRoutes[$uri] ?? null;
 
-        if (!$action) {
-            http_response_code(404);
-            echo "404 Not Found";
-            return;
-        }
+        foreach ($methodRoutes as $route) {
+            if (preg_match($route['pattern'], $uri, $matches)) {
+                $action = $route['action'];
 
-        if (is_callable($action)) {
-            echo call_user_func($action);
-            return;
-        }
+                // Capture parameters
+                $params = [];
+                foreach ($matches as $key => $value) {
+                    if (is_string($key)) {
+                        $params[$key] = $value;
+                    }
+                }
 
-        if (is_string($action)) {
-            // Expected format "HomeController@index"
-            [$controllerShort, $methodName] = explode('@', $action);
+                if (is_callable($action)) {
+                    echo call_user_func_array($action, $params);
+                    return;
+                }
 
-            // Namespace check: use default if full namespace not given
-            $controller = str_contains($controllerShort, '\\')
-                ? $controllerShort
-                : 'App\\Controllers\\' . $controllerShort;
+                if (is_string($action)) {
+                    [$controllerShort, $methodName] = explode('@', $action);
+                    $controller = str_contains($controllerShort, '\\')
+                        ? $controllerShort
+                        : 'App\\Controllers\\' . $controllerShort;
 
-            if (!class_exists($controller)) {
-                throw new \Exception("Controller {$controller} Not Found.");
+                    if (!class_exists($controller)) {
+                        throw new \Exception("Controller {$controller} not found.");
+                    }
+
+                    $instance = new $controller();
+
+                    if (!method_exists($instance, $methodName)) {
+                        throw new \Exception("Method {$methodName} not found in {$controller}.");
+                    }
+
+                    echo call_user_func_array([$instance, $methodName], $params);
+                    return;
+                }
             }
-
-            $instance = new $controller();
-            if (!method_exists($instance, $methodName)) {
-                throw new \Exception("Method {$methodName} not found in {$controller}.");
-            }
-
-            echo call_user_func([$instance, $methodName]);
-            return;
         }
 
-        throw new \Exception("Invalid route action type.");
+        http_response_code(404);
+        echo "404 Not Found";
     }
 }
