@@ -1,6 +1,8 @@
 # PHPMVC
 My PHP Project
 
+- Routes
+
 # Open terminal and run
 - composer dump-autoload
 - php -S localhost:8000 -t public
