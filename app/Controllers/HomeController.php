@@ -14,3 +14,8 @@ class HomeController
         return View::render('home/index.php', $data);
     }
 }
+
+public function show(string $id): string
+{
+    return "Kullanıcı ID: " . htmlspecialchars($id);
+}
