@@ -9,6 +9,15 @@ class HomeController
     {
         $data = [
             'title' => 'Home Page',
+            'user'  => 'Mustafa'
+        ];
+        return View::renderWithLayout('home/index.php', 'layouts/main.php', $data);
+    }
+    
+    public function render(): string
+    {
+        $data = [
+            'title' => 'Home Page',
             'user' => 'Mustafa'
         ];
         return View::render('home/index.php', $data);
@@ -17,5 +26,5 @@ class HomeController
 
 public function show(string $id): string
 {
-    return "Kullanıcı ID: " . htmlspecialchars($id);
+    return "User Id: " . htmlspecialchars($id);
 }
