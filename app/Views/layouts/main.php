@@ -2,24 +2,20 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title><?= htmlspecialchars($title ?? 'PHP MVC') ?></title>
+        <title><?php yield_content('title', 'PHP MVC'); ?></title>
         <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
         <header>
-            <h1>PHP MVC Framework</h1>
-            <nav>
-                <a href="/">Home Page</a>
-                <a href="/hello">Hello</a> (closure example)
-            </nav>
+            <?php include_view('partials/header.php'); ?>
         </header>
 
         <main>
-            <?= $content ?>
+            <?php yield_content('content'); ?>
         </main>
 
         <footer>
-            <p>&copy; <?= date('Y') ?> All rights reserved.</p>
+            <?php include_view('partials/footer.php'); ?>
         </footer>
     </body>
 </html>
