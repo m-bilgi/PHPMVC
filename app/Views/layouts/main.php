@@ -2,20 +2,20 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title><?php yield_content('title', 'PHP MVC'); ?></title>
+        <title><?php yieldContent('title', 'PHP MVC'); ?></title>
         <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
         <header>
-            <?php include_view('partials/header.php'); ?>
+            <?php includeFile('partials/header.php'); ?>
         </header>
 
         <main>
-            <?php yield_content('content'); ?>
+            <?php yieldContent('content'); ?>
         </main>
 
         <footer>
-            <?php include_view('partials/footer.php'); ?>
+            <?php includeFile('partials/footer.php'); ?>
         </footer>
     </body>
 </html>
