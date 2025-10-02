@@ -4,7 +4,7 @@ My PHP Project
 - Routes
   - Parameterized route
 - Layout
-- View (section, yield, include)
+- View (section, yield(s), include)
   ```bash
   SECTION
   <?php section('title'); ?>
@@ -14,6 +14,9 @@ My PHP Project
   YIELD
   <?= yieldContent('title', 'PHP MVC'); ?>
   <?= yieldContent('content'); ?>
+  <?php yieldContentOr('sidebar', function () { ?>
+      <p>Default sidebar.</p>
+  <?php }); ?>
 
   INCLUDE
   <?= includeFile('partials/footer.php'); ?>
