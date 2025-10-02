@@ -4,6 +4,21 @@ My PHP Project
 - Routes
   - Parameterized route
 - Layout
+- View section
+  ```bash
+  <?php section('title'); ?>
+      Home Page
+  <?php endsection(); ?>
+  ```
+- View yield
+  ```bash
+  <?= yieldContent('title', 'PHP MVC'); ?>
+  <?= yieldContent('content'); ?>
+  ```
+- View include
+  ```bash
+  <?= includeFile('partials/footer.php'); ?>
+  ```
 
 # Required
 - Composer: https://getcomposer.org/
