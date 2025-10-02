@@ -2,7 +2,7 @@
 My PHP Project
 
 - Routes
--- Parameterized route
+  - Parameterized route
 - Layout
 
 # Required
