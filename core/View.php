@@ -6,6 +6,11 @@ class View
     protected static array $sections = [];
     protected static array $sectionStack = [];
 
+    public static function hasSection(string $name): bool
+    {
+        return isset(self::$sections[$name]);
+    }
+
     public static function render(string $viewPath, array $params = []): string
     {
         $full = __DIR__ . '/../app/Views/' . ltrim($viewPath, '/');
