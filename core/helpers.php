@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Core\View;
 
@@ -27,5 +28,16 @@ if (!function_exists('includeFile')) {
     function includeFile(string $viewPath, array $params = []): void
     {
         View::include($viewPath, $params);
+    }
+}
+
+if (!function_exists('yieldContentOr')) {
+    function yieldContentOr(string $name, callable $callback): void
+    {
+        if (!isset(View::$sections[$name])) {
+            echo $callback();
+        } else {
+            yieldContent($name);
+        }
     }
 }
