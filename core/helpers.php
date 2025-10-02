@@ -34,7 +34,7 @@ if (!function_exists('includeFile')) {
 if (!function_exists('yieldContentOr')) {
     function yieldContentOr(string $name, callable $callback): void
     {
-        if (!isset(View::$sections[$name])) {
+        if (!View::hasSection($name)) {
             echo $callback();
         } else {
             yieldContent($name);
