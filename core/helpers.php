@@ -16,15 +16,15 @@ if (!function_exists('endsection')) {
     }
 }
 
-if (!function_exists('yield_content')) {
-    function yield_content(string $name, string $default = ''): void
+if (!function_exists('yieldContent')) {
+    function yieldContent(string $name, string $default = ''): void
     {
         View::yield($name, $default);
     }
 }
 
-if (!function_exists('include_view')) {
-    function include_view(string $viewPath, array $params = []): void
+if (!function_exists('includeFile')) {
+    function includeFile(string $viewPath, array $params = []): void
     {
         View::include($viewPath, $params);
     }
