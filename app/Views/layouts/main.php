@@ -14,6 +14,12 @@
             <?php yieldContent('content'); ?>
         </main>
 
+        <aside>
+            <?php yieldContentOr('sidebar', function () { ?>
+                <p>Default sidebar</p>
+            <?php }); ?>
+        </aside>
+
         <footer>
             <?php includeFile('partials/footer.php'); ?>
         </footer>
