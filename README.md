@@ -4,19 +4,18 @@ My PHP Project
 - Routes
   - Parameterized route
 - Layout
-- View section
+- View (section, yield, include)
   ```bash
+  SECTION
   <?php section('title'); ?>
       Home Page
   <?php endsection(); ?>
-  ```
-- View yield
-  ```bash
+
+  YIELD
   <?= yieldContent('title', 'PHP MVC'); ?>
   <?= yieldContent('content'); ?>
-  ```
-- View include
-  ```bash
+
+  INCLUDE
   <?= includeFile('partials/footer.php'); ?>
   ```
 
