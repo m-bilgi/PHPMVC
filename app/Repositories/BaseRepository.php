@@ -40,17 +40,23 @@ abstract class BaseRepository
 
         $stmt->execute();
 
-        if ($fetchAll) {
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            $rows = $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
-        }
+        $rows = $fetchAll
+            ? $stmt->fetchAll(PDO::FETCH_ASSOC)
+            : ($stmt->fetch(PDO::FETCH_ASSOC) ?: null);
 
         $stmt->closeCursor();
 
         return $rows;
     }
 
+    /** 
+     * Returns the last inserted ID
+     */
+    protected function lastInsertId(): string
+    {
+        return $this->pdo->lastInsertId();
+    }
+    
     /**
      * Returns the QueryOptions parameters as an array
      */
