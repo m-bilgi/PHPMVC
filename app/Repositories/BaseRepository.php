@@ -23,6 +23,14 @@ abstract class BaseRepository
      */
     protected function callProcedure(string $procedureName, array $params = [], bool $fetchAll = true): array|null
     {
+        if (empty($params)) {
+            $sql = "CALL {$procedureName}()";
+            $stmt = $this->pdo->query($sql);
+            return $fetchAll
+                ? $stmt->fetchAll(PDO::FETCH_ASSOC)
+                : ($stmt->fetch(PDO::FETCH_ASSOC) ?: null);
+        }
+
         // Prepare parameters as :key
         $placeholders = [];
         foreach ($params as $key => $val) {
@@ -37,6 +45,12 @@ abstract class BaseRepository
         foreach ($params as $key => $val) {
             $stmt->bindValue(':' . $key, $val);
         }
+
+        $stmt->execute();
+
+        $rows = $fetchAll
+            ? $stmt->fetchAll(PDO::FETCH_ASSOC)
+            : ($stmt->fetch(PDO::FETCH_ASSOC) ?: null);
 
         $stmt->execute();
 
