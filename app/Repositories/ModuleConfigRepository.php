@@ -1,0 +1,202 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Repositories;
+
+use Core\Database;
+use App\Models\ModuleConfig;
+use PDO;
+
+class ModuleConfigRepository
+{
+    private PDO $pdo;
+
+    public function __construct()
+    {
+        $this->pdo = Database::getConnection();
+    }
+
+    /**
+     * Return a single record - (via stored procedure)
+     * Stored Procedure: sp_select_module_config(...)
+     *
+     * @param QueryOptions $options object.
+     * @param ModuleConfig $model object
+     * @return ModuleConfig|null
+     */
+    public function select(QueryOptions $options, ModuleConfig $model): ?ModuleConfig
+    {
+        try {
+            $stmt = $this->pdo->prepare("CALL sp_select_module_config(:procType, :langValue, :moduleId, :moduleName, :moduleStatus)");
+            $stmt->bindValue(':procType', $options->procType);
+            $stmt->bindValue(':langValue', $options->langValue);
+            $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
+            $stmt->bindValue(':moduleName', $model->name);
+            $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $stmt->closeCursor();
+
+            if (!$row) {
+                return null;
+            }
+
+            return ModuleConfig::fromArray($row);
+        } catch (\Throwable $th) {
+            // Error catching and logging
+            // \Log::error("Error in select() function 'sp_select_module_config': " . $th->getMessage());
+            if ($_ENV['APP_DEV_MODE']) {
+                var_dump($th->getMessage());
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Return a list records (via stored procedure).
+     * Stored Procedure: sp_select_module_config(...)
+     *
+     * @param QueryOptions $options object.
+     * @param ModuleConfig $model object
+     * @return array - ModuleConfig[]
+     */
+    public function selectList(QueryOptions $options, ModuleConfig $model): array
+    {
+        try {
+            $stmt = $this->pdo->prepare("CALL sp_select_module_config(:procType, :langValue, :moduleId, :moduleName, :moduleStatus)");
+            $stmt->bindValue(':procType', $options->procType);
+            $stmt->bindValue(':langValue', $options->langValue);
+            $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
+            $stmt->bindValue(':moduleName', $model->name);
+            $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $categories = [];
+            foreach ($rows as $row) {
+                $categories[] = ModuleConfig::fromArray($row);
+            }
+
+            // In PDO stored procedure calls, the buffer must be cleared to avoid problems in subsequent queries.
+            $stmt->closeCursor();
+
+            return $categories;
+        } catch (\Throwable $th) {
+            // Error catching and logging
+            // \Log::error("Error in selectList() function 'sp_select_module_config: " . $th->getMessage());
+            if ($_ENV['APP_DEV_MODE']) {
+                var_dump($th->getMessage());
+            }
+            return null;
+        }
+    }
+
+    /**
+     * ...TODO: NOT TESTED...
+     * Return bool (via stored procedure).
+     * Stored Procedure: sp_insert_module_config(...)
+     *
+     * @param QueryOptions $options object.
+     * @param ModuleConfig $model object
+     * @return bool - true|false
+     */
+    public function insert(QueryOptions $options, ModuleConfig $model): bool
+    {
+        try {
+            $stmt = $this->pdo->prepare("CALL sp_insert_module_config(:procType, :moduleId, :moduleGuid, :moduleName, :memberSelectLevel, :memberInsertLevel, :moduleStatus, :uploadFileExtensions, :uploadFileSize, :memberUploadLevel, :uploadFileStatus)");
+            $stmt->bindValue(':procType', $options->procType);
+            $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
+            $stmt->bindValue(':moduleGuid', $model->guid);
+            $stmt->bindValue(':moduleName', $model->name);
+            $stmt->bindValue(':memberSelectLevel', $model->member_level, PDO::PARAM_INT);
+            $stmt->bindValue(':memberInsertLevel', $model->content_add_member_level, PDO::PARAM_INT);
+            $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
+            $stmt->bindValue(':uploadFileExtensions', $model->upload_file_extensions);
+            $stmt->bindValue(':uploadFileSize', $model->upload_file_size);
+            $stmt->bindValue(':memberUploadLevel', $model->upload_file_member_level, PDO::PARAM_INT);
+            $stmt->bindValue(':uploadFileStatus', $model->upload_file_status, PDO::PARAM_INT);
+            $result = $stmt->execute();
+            $stmt->closeCursor();
+
+            return $result;
+        } catch (\Throwable $th) {
+            // Error catching and logging
+            // \Log::error("Error in insert() function 'sp_insert_module_config: " . $th->getMessage());
+            if ($_ENV['APP_DEV_MODE']) {
+                var_dump($th->getMessage());
+            }
+            return false;
+        }
+    }
+
+    /**
+     * ...TODO: NOT TESTED...
+     * Return bool (via stored procedure).
+     * Stored Procedure: sp_update_module_config(...)
+     *
+     * @param QueryOptions $options object.
+     * @param ModuleConfig $model object
+     * @return bool - true|false
+     */
+    public function update(QueryOptions $options, ModuleConfig $model): bool
+    {
+        try {
+            $stmt = $this->pdo->prepare("CALL sp_update_module_config(:procType, :moduleId, :moduleGuid, :moduleName, :memberSelectLevel, :memberInsertLevel, :moduleStatus, :uploadFileExtensions, :uploadFileSize, :memberUploadLevel, :uploadFileStatus)");
+            $stmt->bindValue(':procType', $options->procType);
+            $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
+            $stmt->bindValue(':moduleGuid', $model->guid);
+            $stmt->bindValue(':moduleName', $model->name);
+            $stmt->bindValue(':memberSelectLevel', $model->member_level, PDO::PARAM_INT);
+            $stmt->bindValue(':memberInsertLevel', $model->content_add_member_level, PDO::PARAM_INT);
+            $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
+            $stmt->bindValue(':uploadFileExtensions', $model->upload_file_extensions);
+            $stmt->bindValue(':uploadFileSize', $model->upload_file_size);
+            $stmt->bindValue(':memberUploadLevel', $model->upload_file_member_level, PDO::PARAM_INT);
+            $stmt->bindValue(':uploadFileStatus', $model->upload_file_status, PDO::PARAM_INT);
+
+            $result = $stmt->execute();
+            $stmt->closeCursor();
+
+            return $result;
+        } catch (\Throwable $th) {
+            // Error catching and logging
+            // \Log::error("Error in update() function 'sp_update_module_config: " . $th->getMessage());
+            if ($_ENV['APP_DEV_MODE']) {
+                var_dump($th->getMessage());
+            }
+            return false;
+        }
+    }
+
+    /**
+     * ...TODO: NOT TESTED...
+     * Return bool (via stored procedure).
+     * Stored Procedure: sp_delete_module_config(...)
+     *
+     * @param QueryOptions $options object.
+     * @param ModuleConfig $model object
+     * @return bool - true|false
+     */
+    public function delete(int $id): bool
+    {
+        try {
+            $stmt = $this->pdo->prepare("CALL sp_delete_module_config(:moduleId)");
+            $stmt->bindValue(':moduleId', $id, PDO::PARAM_INT);
+
+            $result = $stmt->execute();
+            $stmt->closeCursor();
+
+            return $result;
+        } catch (\Throwable $th) {
+            // Error catching and logging
+            // \Log::error("Error in delete() function 'sp_delete_module_config: " . $th->getMessage());
+            if ($_ENV['APP_DEV_MODE']) {
+                var_dump($th->getMessage());
+            }
+            return false;
+        }
+    }
+}
