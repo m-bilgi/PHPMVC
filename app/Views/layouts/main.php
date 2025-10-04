@@ -2,26 +2,28 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title><?php yieldContent('title', 'PHP MVC'); ?></title>
+        <title><?= yieldContent('title', 'PHP MVC'); ?></title>
         <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
-        <header>
-            <?php includeFile('partials/header.php'); ?>
+        <header style="border-bottom: 1px solid #000; padding-bottom: 15px;">
+            <?= includeFile('partials/header.php'); ?>
         </header>
 
-        <main>
-            <?php yieldContent('content'); ?>
+        <main style="padding: 15px 0 30px 0;">
+            <?= yieldContent('content'); ?>
         </main>
 
-        <aside>
-            <?php yieldContentOr('sidebar', function () { ?>
-                <p>Default sidebar</p>
-            <?php }); ?>
+        <aside style="border-top: 1px solid #000; padding: 15px 0;">
+            <?php 
+            yieldContentOr('sidebar', function () {
+                echo '<p>Default sidebar.</p>';
+            });
+            ?>
         </aside>
 
-        <footer>
-            <?php includeFile('partials/footer.php'); ?>
+        <footer style="border-top: 1px solid #000; padding: 15px 0;">
+            <?= includeFile('partials/footer.php'); ?>
         </footer>
     </body>
 </html>
