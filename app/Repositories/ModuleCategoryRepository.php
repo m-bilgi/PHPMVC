@@ -178,7 +178,7 @@ class ModuleCategoryRepository
     /**
      * ...TODO: NOT TESTED...
      * Return bool (via stored procedure).
-     * Stored Procedure: sp_update_module_category(...)
+     * Stored Procedure: sp_delete_module_category(...)
      *
      * @param QueryOptions $options object.
      * @param ModuleCategory $model object
