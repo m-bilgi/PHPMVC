@@ -30,3 +30,35 @@ My PHP Project
 - php -S localhost:8000 -t public
 
 Open http://localhost:8000/ in the browser.
+
+# Structure Map
+- app
+  - Controllers
+    - HomeController.php
+  - Models
+    - BaseModel.php
+	- ModuleCategory.php
+  - Repositories
+    - ModuleCategoryRepository.php
+  - Views
+    - home
+	  - index.php
+	- layouts
+	  - main.php
+	- partials
+	  - footer.php
+	  - header.php
+- core
+  - Database.php
+  - Request.php
+  - Router.php
+  - View.php
+  - env.php
+  - helpers.php
+- public
+  - css
+    - style.css
+  - index.php
+- .env
+- composer.json
+- routes.php
