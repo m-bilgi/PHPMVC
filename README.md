@@ -40,7 +40,7 @@ Open http://localhost:8000/ in the browser.
 	- ModuleCategory.php
   - Repositories
     - ModuleCategoryRepository.php
-    - QueryOptions.php
+	- QueryOptions.php
   - Views
     - home
 	  - index.php
@@ -57,8 +57,11 @@ Open http://localhost:8000/ in the browser.
   - env.php
   - helpers.php
 - public
-  - css
-    - style.css
+  - assets
+    - css
+      - style.css
+    - js
+      - script.js
   - index.php
 - .env
 - composer.json
