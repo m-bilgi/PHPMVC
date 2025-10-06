@@ -102,7 +102,7 @@ class MemberRepository
             if ($_ENV['APP_DEV_MODE']) {
                 var_dump($th->getMessage());
             }
-            return null;
+            return [];
         }
     }
 
