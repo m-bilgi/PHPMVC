@@ -33,38 +33,38 @@ Open http://localhost:8000/ in the browser.
 
 ```bash
 # Structure Map
-- app
-  - Controllers
-    - HomeController.php
-  - Models
-    - BaseModel.php
-	- ModuleCategory.php
-  - Repositories
-    - ModuleCategoryRepository.php
-	- QueryOptions.php
-  - Views
-    - home
-	  - index.php
-	- layouts
-	  - main.php
-	- partials
-	  - footer.php
-	  - header.php
-- core
-  - Database.php
-  - Request.php
-  - Router.php
-  - View.php
-  - env.php
-  - helpers.php
-- public
-  - assets
-    - css
-      - style.css
-    - js
-      - script.js
-  - index.php
-- .env
-- composer.json
-- routes.php
+├── app
+│   ├── Controllers
+│   │   ├── HomeController.php
+│   ├── Models
+│   │   ├── BaseModel.php
+│   │   ├── ModuleCategory.php
+│   ├── Repositories
+│   │   ├── ModuleCategoryRepository.php
+│   │   ├── QueryOptions.php
+│   ├── Views
+│   │   ├── home
+│   │   ├── index.php
+│   ├── layouts
+│   │   ├── main.php
+│   ├── partials
+│   │   ├── footer.php
+│   │   ├── header.php
+├── core
+│   ├── Database.php
+│   ├── Request.php
+│   ├── Router.php
+│   ├── View.php
+│   ├── env.php
+│   ├── helpers.php
+├── public
+│   ├── assets
+│   │   ├── css
+│   │   │   ├── style.css
+│   │   ├── js
+│   │   │   ├── script.js
+│   ├── index.php
+├── .env
+├── composer.json
+├── routes.php
 ```
