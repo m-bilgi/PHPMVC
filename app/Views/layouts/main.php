@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <title><?= yieldContent('title', 'PHP MVC'); ?></title>
-        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <script src="/assets/js/script.js"></script>
     </head>
     <body>
         <header style="border-bottom: 1px solid #000; padding-bottom: 15px;">
