@@ -75,22 +75,22 @@ class ModuleConfigRepository
 
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            $categories = [];
+            $result = [];
             foreach ($rows as $row) {
-                $categories[] = ModuleConfig::fromArray($row);
+                $result[] = ModuleConfig::fromArray($row);
             }
 
             // In PDO stored procedure calls, the buffer must be cleared to avoid problems in subsequent queries.
             $stmt->closeCursor();
 
-            return $categories;
+            return $result;
         } catch (\Throwable $th) {
             // Error catching and logging
             // \Log::error("Error in selectList() function 'sp_select_module_config: " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
                 var_dump($th->getMessage());
             }
-            return null;
+            return [];
         }
     }
 
