@@ -31,6 +31,7 @@ My PHP Project
 
 Open http://localhost:8000/ in the browser.
 
+```bash
 # Structure Map
 - app
   - Controllers
@@ -66,3 +67,4 @@ Open http://localhost:8000/ in the browser.
 - .env
 - composer.json
 - routes.php
+```
