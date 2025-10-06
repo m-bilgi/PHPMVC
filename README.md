@@ -40,6 +40,7 @@ Open http://localhost:8000/ in the browser.
 	- ModuleCategory.php
   - Repositories
     - ModuleCategoryRepository.php
+    - QueryOptions.php
   - Views
     - home
 	  - index.php
