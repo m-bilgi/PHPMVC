@@ -27,12 +27,12 @@ class ModuleCategoryRepository
     public function select(QueryOptions $options, ModuleCategory $model): ?ModuleCategory
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_select_module_category(:procType, :langValue, :categoyId, :moduleId, :categoryName, :categoryStatus)");
+            $stmt = $this->pdo->prepare("CALL sp_select_module_category(:procType, :langValue, :categoyId, :moduleId, :categoryUrl, :categoryStatus)");
             $stmt->bindValue(':procType', $options->procType);
             $stmt->bindValue(':langValue', $options->langValue);
             $stmt->bindValue(':categoyId', $model->id, PDO::PARAM_INT);
             $stmt->bindValue(':moduleId', $model->module_id, PDO::PARAM_INT);
-            $stmt->bindValue(':categoryName', $model->name);
+            $stmt->bindValue(':categoryUrl', $model->url);
             $stmt->bindValue(':categoryStatus', $model->status, PDO::PARAM_INT);
             $stmt->execute();
 
@@ -61,17 +61,17 @@ class ModuleCategoryRepository
      *
      * @param QueryOptions $options object.
      * @param ModuleCategory $model object
-     * @return array - ModuleCategory[]
+     * @return array - ModuleCategory[]|[]
      */
     public function selectList(QueryOptions $options, ModuleCategory $model): array
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_select_module_category(:procType, :langValue, :categoyId, :moduleId, :categoryName, :categoryStatus)");
-            $stmt->bindValue(':procTypeX', $options->procType);
+            $stmt = $this->pdo->prepare("CALL sp_select_module_category(:procType, :langValue, :categoyId, :moduleId, :categoryUrl, :categoryStatus)");
+            $stmt->bindValue(':procType', $options->procType);
             $stmt->bindValue(':langValue', $options->langValue);
             $stmt->bindValue(':categoyId', $model->id, PDO::PARAM_INT);
             $stmt->bindValue(':moduleId', $model->module_id, PDO::PARAM_INT);
-            $stmt->bindValue(':categoryName', $model->name);
+            $stmt->bindValue(':categoryUrl', $model->url);
             $stmt->bindValue(':categoryStatus', $model->status, PDO::PARAM_INT);
             $stmt->execute();
 
@@ -92,7 +92,7 @@ class ModuleCategoryRepository
             if ($_ENV['APP_DEV_MODE']) {
                 var_dump($th->getMessage());
             }
-            return null;
+            return [];
         }
     }
 
