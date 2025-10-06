@@ -31,8 +31,8 @@ My PHP Project
 
 Open http://localhost:8000/ in the browser.
 
-```bash
 # Structure Map
+```bash
 ├── app
 │   ├── Controllers
 │   │   ├── HomeController.php
