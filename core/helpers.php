@@ -41,3 +41,22 @@ if (!function_exists('yieldContentOr')) {
         }
     }
 }
+
+if (!function_exists('config')) {
+    function config(string $key = null, mixed $default = null): mixed
+    {
+        static $config = null;
+
+        if ($config === null) {
+            $config = require __DIR__ . '/config.php';
+        }
+
+        // Tüm config değerlerini istiyorsa
+        if ($key === null) {
+            return $config;
+        }
+
+        // Tek bir anahtar istiyorsa
+        return $config[$key] ?? $default;
+    }
+}
