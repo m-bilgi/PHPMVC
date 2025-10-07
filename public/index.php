@@ -2,8 +2,9 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../core/helpers.php';
 require __DIR__ . '/../core/env.php';
+require __DIR__ . '/../core/config.php';
+require __DIR__ . '/../core/helpers.php';
 
 // Load .env
 loadEnv(__DIR__ . '/../.env');
