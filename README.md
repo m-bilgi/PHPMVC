@@ -23,11 +23,11 @@ My PHP Project
   ```
 - Config & ENV
   ```bash
-  Config
+  Core: core/config.php
   echo config('key');
   echo config('non_existing_key', 'default_value');
 
-  ENV
+  ENV:
   echo $_ENV['APP_DEV_MODE'];
   ```
 
