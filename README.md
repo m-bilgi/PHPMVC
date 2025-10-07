@@ -21,6 +21,15 @@ My PHP Project
   INCLUDE
   <?= includeFile('partials/footer.php'); ?>
   ```
+- Config & ENV
+  ```bash
+  Config
+  echo config('key');
+  echo config('non_existing_key', 'default_value');
+
+  ENV
+  echo $_ENV['APP_DEV_MODE'];
+  ```
 
 # Required
 - Composer: https://getcomposer.org/
@@ -44,19 +53,22 @@ Open http://localhost:8000/ in the browser.
 │   │   ├── QueryOptions.php
 │   ├── Views
 │   │   ├── home
-│   │   ├── index.php
-│   ├── layouts
-│   │   ├── main.php
-│   ├── partials
-│   │   ├── footer.php
-│   │   ├── header.php
+│   │   │   ├── index.php
+│   │   ├── layouts
+│   │   │   ├── main.php
+│   │   ├── partials
+│   │   │   ├── footer.php
+│   │   │   ├── header.php
 ├── core
+│   ├── config.php
 │   ├── Database.php
-│   ├── Request.php
-│   ├── Router.php
-│   ├── View.php
 │   ├── env.php
 │   ├── helpers.php
+│   ├── Logger.php
+│   ├── Request.php
+│   ├── Router.php
+│   ├── ServiceResponse.php
+│   ├── View.php
 ├── public
 │   ├── assets
 │   │   ├── css
