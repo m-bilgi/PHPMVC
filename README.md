@@ -34,7 +34,7 @@ My PHP Project
 
 # Required
 - Composer: https://getcomposer.org/
-- Tailwindcss CLI: https://tailwindcss.com/docs/installation/tailwind-cli
+- Tailwindcss CLI: https://tailwindcss.com/
 
 # Isntall Composer: open terminal and run
 - composer dump-autoload
