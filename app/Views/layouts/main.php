@@ -2,7 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?= yieldContent('title', 'PHP MVC'); ?></title>
+        <meta name="description" content="Stored procedure based php mvc project.">
+        <meta name="keywords" content="PHP MVC, Tailwind CSS, JavaScript">
+        <meta name="author" content="Mustafa Bilgi">
         <link href="/assets/css/style.css" rel="stylesheet">
         <script src="/assets/js/script.js"></script>
     </head>
