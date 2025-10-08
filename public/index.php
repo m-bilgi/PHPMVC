@@ -11,16 +11,16 @@ loadEnv(__DIR__ . '/../.env');
 
 use Core\Router;
 use Core\Request;
-use Core\Database;
 
-// Test: DB Connection
-try {
-    $pdo = Database::getConnection();
-    // echo "DB connection successful!";
-} catch (Exception $e) {
-    echo $e->getMessage();
-    exit;
-}
+//use Core\Database;
+//Test: DB Connection
+//try {
+//    $pdo = Database::getConnection();
+//    // echo "DB connection successful!";
+//} catch (Exception $e) {
+//    echo $e->getMessage();
+//    exit;
+//}
 
 session_start();
 
