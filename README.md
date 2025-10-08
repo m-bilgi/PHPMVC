@@ -68,7 +68,7 @@ Stored procedure based php mvc project.
 - npm install tailwindcss @tailwindcss/cli
 - npm run dev
   
-If you want to build minify, you can use "npm run build".
+  If you want to build minify, you can use "npm run build".
 
 # Structure Map
 ```bash
