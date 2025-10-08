@@ -59,12 +59,12 @@ Stored procedure based php mvc project.
 - Composer: https://getcomposer.org/
 - Tailwindcss CLI: https://tailwindcss.com/
 
-# Isntall Composer: open terminal and run
+# Install Composer: open terminal and run
 - composer dump-autoload
 - php -S localhost:8000 -t public
 - Open http://localhost:8000/ in the browser.
 
-# Isntall Tailwindcss: open terminal and run
+# Install Tailwindcss: open terminal and run
 - npm install tailwindcss @tailwindcss/cli
 - npm run dev
   
