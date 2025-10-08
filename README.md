@@ -22,6 +22,29 @@ My PHP Project
   <?= includeFile('partials/footer.php'); ?>
   ```
 - tailwindcss
+- Caching (file-based)
+  ```bash
+  use Core\Cache;
+  
+  $cache = new Cache();
+  
+  $key = 'test_users';
+  
+  if ($cache->has($key)) {
+      $data = $cache->get($key);
+      echo "<pre>Cache data:\n";
+      print_r($data);
+  } else {
+      $data = [
+          ['id' => 1, 'name' => 'Alice'],
+          ['id' => 2, 'name' => 'Bob'],
+      ];
+  
+      $cache->set($key, $data, 10); // 10 second
+      echo "<pre>Real data:\n";
+      print_r($data);
+  }
+  ```
 - Config & ENV
   ```bash
   Core: /core/config.php
