@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use Core\Database;
+use Core\{Database, Logger};
 use App\Models\Member;
 use PDO;
 
@@ -14,6 +14,21 @@ class MemberRepository
     public function __construct()
     {
         $this->pdo = Database::getConnection();
+    }
+
+    private function bindSelectParams(\PDOStatement $stmt, QueryOptions $options, ModuleCategory $model): void
+    {
+        $stmt->bindValue(':procType', $options->procType);
+        $stmt->bindValue(':anyValue01', $options->anyValue01);
+        $stmt->bindValue(':anyValue02', $options->anyValue02);
+        $stmt->bindValue(':userId', $model->id, PDO::PARAM_INT);
+        $stmt->bindValue(':userGuid', $model->guid);
+        $stmt->bindValue(':userEmail', $model->email);
+        $stmt->bindValue(':username', $model->username);
+        $stmt->bindValue(':userPassword', $model->password);
+        $stmt->bindValue(':userLevel', $model->level, PDO::PARAM_INT);
+        $stmt->bindValue(':userActivationKey', $model->activation_key);
+        $stmt->bindValue(':userRegisterDate', $model->register_date);
     }
 
     /**
@@ -27,18 +42,8 @@ class MemberRepository
     public function select(QueryOptions $options, Member $model): ?Member
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_select_member(:procType, :anyValue01, :anyValue02, :userId, :userGuid, :userEmail, :username, :userPassword, :userLevel, :userActivationKey, :userRegisterDate)");
-            $stmt->bindValue(':procType', $options->procType);
-            $stmt->bindValue(':anyValue01', $options->anyValue01);
-            $stmt->bindValue(':anyValue02', $options->anyValue02);
-            $stmt->bindValue(':userId', $model->id, PDO::PARAM_INT);
-            $stmt->bindValue(':userGuid', $model->guid);
-            $stmt->bindValue(':userEmail', $model->email);
-            $stmt->bindValue(':username', $model->username);
-            $stmt->bindValue(':userPassword', $model->password);
-            $stmt->bindValue(':userLevel', $model->level, PDO::PARAM_INT);
-            $stmt->bindValue(':userActivationKey', $model->activation_key);
-            $stmt->bindValue(':userRegisterDate', $model->register_date);
+            $stmt = $this->pdo->prepare('CALL sp_select_member(:procType, :anyValue01, :anyValue02, :userId, :userGuid, :userEmail, :username, :userPassword, :userLevel, :userActivationKey, :userRegisterDate)');
+            $this->bindSelectParams($stmt, $options, $model);
             $stmt->execute();
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -52,9 +57,8 @@ class MemberRepository
             return Member::fromArray($row);
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in select() function 'sp_select_member': " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('MemberRepository: ' . $th->getMessage());
             }
             return null;
         }
@@ -71,18 +75,8 @@ class MemberRepository
     public function selectList(QueryOptions $options, Member $model): array
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_select_member(:procType, :anyValue01, :anyValue02, :userId, :userGuid, :userEmail, :username, :userPassword, :userLevel, :userActivationKey, :userRegisterDate)");
-            $stmt->bindValue(':procType', $options->procType);
-            $stmt->bindValue(':anyValue01', $options->anyValue01);
-            $stmt->bindValue(':anyValue02', $options->anyValue02);
-            $stmt->bindValue(':userId', $model->id, PDO::PARAM_INT);
-            $stmt->bindValue(':userGuid', $model->guid);
-            $stmt->bindValue(':userEmail', $model->email);
-            $stmt->bindValue(':username', $model->username);
-            $stmt->bindValue(':userPassword', $model->password);
-            $stmt->bindValue(':userLevel', $model->level, PDO::PARAM_INT);
-            $stmt->bindValue(':userActivationKey', $model->activation_key);
-            $stmt->bindValue(':userRegisterDate', $model->register_date);
+            $stmt = $this->pdo->prepare('CALL sp_select_member(:procType, :anyValue01, :anyValue02, :userId, :userGuid, :userEmail, :username, :userPassword, :userLevel, :userActivationKey, :userRegisterDate)');
+            $this->bindSelectParams($stmt, $options, $model);
             $stmt->execute();
 
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -98,9 +92,8 @@ class MemberRepository
             return $result;
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in selectList() function 'sp_select_member: " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('MemberRepository: ' . $th->getMessage());
             }
             return [];
         }
@@ -118,7 +111,7 @@ class MemberRepository
     public function insert(QueryOptions $options, Member $model): bool
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_insert_member(:procType, :userFirstname, :userSurname, :userEmail, :username, :userPassword, :userLevel, :userActivationKey, :userAvatarUrl, :userBirthday, :userCountryId, :userGender, :userIp, :userLanguage, :userRegisterDate, :userStatus, :userTheme, :userKey2)");
+            $stmt = $this->pdo->prepare('CALL sp_insert_member(:procType, :userFirstname, :userSurname, :userEmail, :username, :userPassword, :userLevel, :userActivationKey, :userAvatarUrl, :userBirthday, :userCountryId, :userGender, :userIp, :userLanguage, :userRegisterDate, :userStatus, :userTheme, :userKey2)');
             $stmt->bindValue(':procType', $options->procType);
             $stmt->bindValue(':userFirstname', $model->name);
             $stmt->bindValue(':userSurname', $model->surname);
@@ -139,15 +132,15 @@ class MemberRepository
             $stmt->bindValue(':userStatus', $model->status, PDO::PARAM_INT);
             $stmt->bindValue(':userTheme', $model->theme);
             $stmt->bindValue(':userKey2', $model->key2);
+
             $result = $stmt->execute();
             $stmt->closeCursor();
 
             return $result;
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in insert() function 'sp_insert_member: " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('MemberRepository: ' . $th->getMessage());
             }
             return false;
         }
@@ -215,15 +208,15 @@ class MemberRepository
             $stmt->bindValue(':userTheme', $model->theme);
             $stmt->bindValue(':userTitle', $model->title);
             //$stmt->bindValue(':userKey2', $model->key2);
+
             $result = $stmt->execute();
             $stmt->closeCursor();
 
             return $result;
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in update() function 'sp_update_member: " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('MemberRepository: ' . $th->getMessage());
             }
             return false;
         }
@@ -250,9 +243,8 @@ class MemberRepository
             return $result;
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in delete() function 'sp_delete_member: " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('MemberRepository: ' . $th->getMessage());
             }
             return false;
         }
