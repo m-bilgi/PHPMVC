@@ -56,11 +56,12 @@ Stored procedure based php mvc project.
   ```
 
 # Required
+- Node.js (for npm commands): https://nodejs.org/
 - Composer: https://getcomposer.org/
-- Tailwindcss CLI: https://tailwindcss.com/
 - PHP (8 or higher): https://www.php.net/
 - MySql or MariaDB: https://www.mysql.com/ or https://mariadb.org/
 - Apache (Recommended): https://httpd.apache.org/
+- Tailwindcss CLI: https://tailwindcss.com/
 
 # Install Composer: open terminal and run
 - composer dump-autoload
