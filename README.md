@@ -2,9 +2,13 @@
 Stored procedure based php mvc project.
 
 - Routes
+  - GET, POST
   - Parameterized route
 - Layout
-- View (section, yield(s), include)
+- View
+  - Section
+  - Yield(s)
+  - Include
   ```bash
   SECTION
   <?php section('title'); ?>
