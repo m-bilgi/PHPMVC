@@ -43,7 +43,7 @@ My PHP Project
 
 # Isntall Tailwindcss: open terminal and run
 - npm install tailwindcss @tailwindcss/cli
-- npx @tailwindcss/cli -i ./public/assets/css/tailwindcss.css -o ./public/assets/css/style.css --watch
+- npx @tailwindcss/cli -i ./private/css/tailwind.css -o ./public/assets/css/style.css --watch
 
 # Structure Map
 ```bash
@@ -74,17 +74,19 @@ My PHP Project
 │   ├── Router.php
 │   ├── ServiceResponse.php
 │   ├── View.php
-├── database (Do not publish the database folder.)
-│   ├── sql
-│   │   ├── procedures
-│   │   │   ├── sp_select_module_category.sql
-│   │   ├── tables
-│   │   │   ├── module_category.sql
+├── private (Do not publish the database folder.)
+│   ├── database
+│   │   ├── sql
+│   │   │   ├── procedures
+│   │   │   │   ├── sp_select_module_category.sql
+│   │   │   ├── tables
+│   │   │   │   ├── module_category.sql
+│   ├── css
+│   │   ├── tailwind.css
 ├── public
 │   ├── assets
 │   │   ├── css
 │   │   │   ├── style.css
-│   │   │   ├── tailwindcss.css
 │   │   ├── js
 │   │   │   ├── script.js
 │   ├── index.php
