@@ -21,6 +21,7 @@ My PHP Project
   INCLUDE
   <?= includeFile('partials/footer.php'); ?>
   ```
+- tailwindcss
 - Config & ENV
   ```bash
   Core: core/config.php
@@ -33,12 +34,16 @@ My PHP Project
 
 # Required
 - Composer: https://getcomposer.org/
+- Tailwindcss CLI: https://tailwindcss.com/docs/installation/tailwind-cli
 
-# Open terminal and run
+# Isntall Composer: open terminal and run
 - composer dump-autoload
 - php -S localhost:8000 -t public
+- Open http://localhost:8000/ in the browser.
 
-Open http://localhost:8000/ in the browser.
+# Isntall Tailwindcss: open terminal and run
+- npm install tailwindcss @tailwindcss/cli
+- npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
 
 # Structure Map
 ```bash
