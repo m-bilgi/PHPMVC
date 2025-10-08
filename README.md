@@ -43,7 +43,7 @@ My PHP Project
 
 # Isntall Tailwindcss: open terminal and run
 - npm install tailwindcss @tailwindcss/cli
-- npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
+- npx @tailwindcss/cli -i ./public/assets/css/tailwindcss.css -o ./public/assets/css/style.css --watch
 
 # Structure Map
 ```bash
