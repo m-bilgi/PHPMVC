@@ -103,7 +103,7 @@ Stored procedure based php mvc project.
 │   ├── Router.php
 │   ├── ServiceResponse.php
 │   ├── View.php
-├── private (Do not publish the database folder.)
+├── private (Do not publish the folder.)
 │   ├── cache
 │   ├── css
 │   │   ├── tailwind.css
