@@ -7,15 +7,15 @@
         <script src="/assets/js/script.js"></script>
     </head>
     <body>
-        <header style="border-bottom: 1px solid #000; padding-bottom: 15px;">
+        <header class="p-5 border-b border-gray-400 bg-gray-400">
             <?= includeFile('partials/header.php'); ?>
         </header>
 
-        <main style="padding: 15px 0 30px 0;">
+        <main class="p-5 pb-8">
             <?= yieldContent('content'); ?>
         </main>
 
-        <aside style="border-top: 1px solid #000; padding: 15px 0;">
+        <aside class="p-5 border-t border-gray-400">
             <?php 
             yieldContentOr('sidebar', function () {
                 echo '<p>Default sidebar.</p>';
@@ -23,7 +23,7 @@
             ?>
         </aside>
 
-        <footer style="border-top: 1px solid #000; padding: 15px 0;">
+        <footer class="p-5 border-t border-gray-400">
             <?= includeFile('partials/footer.php'); ?>
         </footer>
     </body>
