@@ -1,5 +1,5 @@
 # PHPMVC
-My PHP Project
+Stored procedure based php mvc project.
 
 - Routes
   - Parameterized route
