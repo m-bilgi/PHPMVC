@@ -21,7 +21,7 @@ Stored procedure based php mvc project.
   INCLUDE
   <?= includeFile('partials/footer.php'); ?>
   ```
-- tailwindcss
+- Tailwind CSS
 - Caching (file-based)
   ```bash
   use Core\Cache;
