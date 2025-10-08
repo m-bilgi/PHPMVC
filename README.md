@@ -43,7 +43,9 @@ My PHP Project
 
 # Isntall Tailwindcss: open terminal and run
 - npm install tailwindcss @tailwindcss/cli
-- npx @tailwindcss/cli -i ./private/css/tailwind.css -o ./public/assets/css/style.css --watch
+- npm run dev
+  
+If you want to build minify, you can use "npm run build".
 
 # Structure Map
 ```bash
@@ -75,14 +77,15 @@ My PHP Project
 │   ├── ServiceResponse.php
 │   ├── View.php
 ├── private (Do not publish the database folder.)
+│   ├── cache
+│   ├── css
+│   │   ├── tailwind.css
 │   ├── database
 │   │   ├── sql
 │   │   │   ├── procedures
 │   │   │   │   ├── sp_select_module_category.sql
 │   │   │   ├── tables
 │   │   │   │   ├── module_category.sql
-│   ├── css
-│   │   ├── tailwind.css
 ├── public
 │   ├── assets
 │   │   ├── css
