@@ -25,7 +25,6 @@ Stored procedure based php mvc project.
   INCLUDE
   <?= includeFile('partials/footer.php'); ?>
   ```
-- Tailwind CSS
 - Caching (file-based)
   ```bash
   use Core\Cache;
@@ -53,6 +52,7 @@ Stored procedure based php mvc project.
   ENV: /.env
   echo $_ENV['APP_DEV_MODE'];
   ```
+- Tailwind CSS
 
 # Required
 - Node.js (for npm commands): https://nodejs.org/
