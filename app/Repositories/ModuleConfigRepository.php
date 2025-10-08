@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use Core\Database;
+use Core\{Database, Logger};
 use App\Models\ModuleConfig;
 use PDO;
 
@@ -14,6 +14,30 @@ class ModuleConfigRepository
     public function __construct()
     {
         $this->pdo = Database::getConnection();
+    }
+
+    private function bindSelectParams(\PDOStatement $stmt, QueryOptions $options, ModuleCategory $model): void
+    {
+        $stmt->bindValue(':procType', $options->procType);
+        $stmt->bindValue(':langValue', $options->langValue);
+        $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
+        $stmt->bindValue(':moduleName', $model->name);
+        $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
+    }
+
+    private function bindInsertUpdateParams(\PDOStatement $stmt, QueryOptions $options, ModuleCategory $model): void
+    {
+        $stmt->bindValue(':procType', $options->procType);
+        $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
+        $stmt->bindValue(':moduleGuid', $model->guid);
+        $stmt->bindValue(':moduleName', $model->name);
+        $stmt->bindValue(':memberSelectLevel', $model->member_level, PDO::PARAM_INT);
+        $stmt->bindValue(':memberInsertLevel', $model->content_add_member_level, PDO::PARAM_INT);
+        $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
+        $stmt->bindValue(':uploadFileExtensions', $model->upload_file_extensions);
+        $stmt->bindValue(':uploadFileSize', $model->upload_file_size);
+        $stmt->bindValue(':memberUploadLevel', $model->upload_file_member_level, PDO::PARAM_INT);
+        $stmt->bindValue(':uploadFileStatus', $model->upload_file_status, PDO::PARAM_INT);
     }
 
     /**
@@ -27,12 +51,8 @@ class ModuleConfigRepository
     public function select(QueryOptions $options, ModuleConfig $model): ?ModuleConfig
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_select_module_config(:procType, :langValue, :moduleId, :moduleName, :moduleStatus)");
-            $stmt->bindValue(':procType', $options->procType);
-            $stmt->bindValue(':langValue', $options->langValue);
-            $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
-            $stmt->bindValue(':moduleName', $model->name);
-            $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
+            $stmt = $this->pdo->prepare('CALL sp_select_module_config(:procType, :langValue, :moduleId, :moduleName, :moduleStatus)');
+            $this->bindSelectParams($stmt, $options, $model);
             $stmt->execute();
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -46,9 +66,8 @@ class ModuleConfigRepository
             return ModuleConfig::fromArray($row);
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in select() function 'sp_select_module_config': " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('ModuleConfigRepository: ' . $th->getMessage());
             }
             return null;
         }
@@ -65,12 +84,8 @@ class ModuleConfigRepository
     public function selectList(QueryOptions $options, ModuleConfig $model): array
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_select_module_config(:procType, :langValue, :moduleId, :moduleName, :moduleStatus)");
-            $stmt->bindValue(':procType', $options->procType);
-            $stmt->bindValue(':langValue', $options->langValue);
-            $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
-            $stmt->bindValue(':moduleName', $model->name);
-            $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
+            $stmt = $this->pdo->prepare('CALL sp_select_module_config(:procType, :langValue, :moduleId, :moduleName, :moduleStatus)');
+            $this->bindSelectParams($stmt, $options, $model);
             $stmt->execute();
 
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -86,9 +101,8 @@ class ModuleConfigRepository
             return $result;
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in selectList() function 'sp_select_module_config: " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('ModuleConfigRepository: ' . $th->getMessage());
             }
             return [];
         }
@@ -106,27 +120,17 @@ class ModuleConfigRepository
     public function insert(QueryOptions $options, ModuleConfig $model): bool
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_insert_module_config(:procType, :moduleId, :moduleGuid, :moduleName, :memberSelectLevel, :memberInsertLevel, :moduleStatus, :uploadFileExtensions, :uploadFileSize, :memberUploadLevel, :uploadFileStatus)");
-            $stmt->bindValue(':procType', $options->procType);
-            $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
-            $stmt->bindValue(':moduleGuid', $model->guid);
-            $stmt->bindValue(':moduleName', $model->name);
-            $stmt->bindValue(':memberSelectLevel', $model->member_level, PDO::PARAM_INT);
-            $stmt->bindValue(':memberInsertLevel', $model->content_add_member_level, PDO::PARAM_INT);
-            $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
-            $stmt->bindValue(':uploadFileExtensions', $model->upload_file_extensions);
-            $stmt->bindValue(':uploadFileSize', $model->upload_file_size);
-            $stmt->bindValue(':memberUploadLevel', $model->upload_file_member_level, PDO::PARAM_INT);
-            $stmt->bindValue(':uploadFileStatus', $model->upload_file_status, PDO::PARAM_INT);
+            $stmt = $this->pdo->prepare('CALL sp_insert_module_config(:procType, :moduleId, :moduleGuid, :moduleName, :memberSelectLevel, :memberInsertLevel, :moduleStatus, :uploadFileExtensions, :uploadFileSize, :memberUploadLevel, :uploadFileStatus)');
+            $this->bindInsertUpdateParams($stmt, $options, $model);
             $result = $stmt->execute();
+
             $stmt->closeCursor();
 
             return $result;
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in insert() function 'sp_insert_module_config: " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('ModuleConfigRepository: ' . $th->getMessage());
             }
             return false;
         }
@@ -144,28 +148,17 @@ class ModuleConfigRepository
     public function update(QueryOptions $options, ModuleConfig $model): bool
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_update_module_config(:procType, :moduleId, :moduleGuid, :moduleName, :memberSelectLevel, :memberInsertLevel, :moduleStatus, :uploadFileExtensions, :uploadFileSize, :memberUploadLevel, :uploadFileStatus)");
-            $stmt->bindValue(':procType', $options->procType);
-            $stmt->bindValue(':moduleId', $model->id, PDO::PARAM_INT);
-            $stmt->bindValue(':moduleGuid', $model->guid);
-            $stmt->bindValue(':moduleName', $model->name);
-            $stmt->bindValue(':memberSelectLevel', $model->member_level, PDO::PARAM_INT);
-            $stmt->bindValue(':memberInsertLevel', $model->content_add_member_level, PDO::PARAM_INT);
-            $stmt->bindValue(':moduleStatus', $model->status, PDO::PARAM_INT);
-            $stmt->bindValue(':uploadFileExtensions', $model->upload_file_extensions);
-            $stmt->bindValue(':uploadFileSize', $model->upload_file_size);
-            $stmt->bindValue(':memberUploadLevel', $model->upload_file_member_level, PDO::PARAM_INT);
-            $stmt->bindValue(':uploadFileStatus', $model->upload_file_status, PDO::PARAM_INT);
-
+            $stmt = $this->pdo->prepare('CALL sp_update_module_config(:procType, :moduleId, :moduleGuid, :moduleName, :memberSelectLevel, :memberInsertLevel, :moduleStatus, :uploadFileExtensions, :uploadFileSize, :memberUploadLevel, :uploadFileStatus)');
+            $this->bindInsertUpdateParams($stmt, $options, $model);
             $result = $stmt->execute();
+
             $stmt->closeCursor();
 
             return $result;
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in update() function 'sp_update_module_config: " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('ModuleConfigRepository: ' . $th->getMessage());
             }
             return false;
         }
@@ -183,7 +176,7 @@ class ModuleConfigRepository
     public function delete(int $id): bool
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_delete_module_config(:moduleId)");
+            $stmt = $this->pdo->prepare('CALL sp_delete_module_config(:moduleId)');
             $stmt->bindValue(':moduleId', $id, PDO::PARAM_INT);
 
             $result = $stmt->execute();
@@ -192,9 +185,8 @@ class ModuleConfigRepository
             return $result;
         } catch (\Throwable $th) {
             // Error catching and logging
-            // \Log::error("Error in delete() function 'sp_delete_module_config: " . $th->getMessage());
             if ($_ENV['APP_DEV_MODE']) {
-                var_dump($th->getMessage());
+                Logger::error('ModuleConfigRepository: ' . $th->getMessage());
             }
             return false;
         }
