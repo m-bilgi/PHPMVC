@@ -24,11 +24,11 @@ My PHP Project
 - tailwindcss
 - Config & ENV
   ```bash
-  Core: core/config.php
+  Core: /core/config.php
   echo config('key');
   echo config('non_existing_key', 'default_value');
 
-  ENV:
+  ENV: /.env
   echo $_ENV['APP_DEV_MODE'];
   ```
 
