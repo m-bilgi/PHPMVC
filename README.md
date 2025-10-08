@@ -74,14 +74,25 @@ My PHP Project
 │   ├── Router.php
 │   ├── ServiceResponse.php
 │   ├── View.php
+├── database (Do not publish the database folder.)
+│   ├── sql
+│   │   ├── procedures
+│   │   │   ├── sp_select_module_category.sql
+│   │   ├── tables
+│   │   │   ├── module_category.sql
 ├── public
 │   ├── assets
 │   │   ├── css
 │   │   │   ├── style.css
+│   │   │   ├── tailwindcss.css
 │   │   ├── js
 │   │   │   ├── script.js
 │   ├── index.php
+├── storage
+│   ├── logs
+│   │   ├── app.log
 ├── .env
 ├── composer.json
+├── package.json
 ├── routes.php
 ```
