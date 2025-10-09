@@ -8,7 +8,6 @@ use DateTime;
 class Category extends BaseModel
 {
 	public ?int $id = null;
-	public ?string $guid = null;
 	public ?string $name = null;
 	public ?int $hit = null;
 	public ?string $image = null;
@@ -18,7 +17,6 @@ class Category extends BaseModel
 
     protected static array $casts = [
         'id' => 'int',
-        'guid' => 'string',
         'name' => 'string',
         'hit' => 'int',
         'image' => 'string',
