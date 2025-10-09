@@ -80,9 +80,9 @@ Stored procedure based php mvc project.
 │   │   ├── HomeController.php
 │   ├── Models
 │   │   ├── BaseModel.php
-│   │   ├── ModuleCategory.php
+│   │   ├── Category.php
 │   ├── Repositories
-│   │   ├── ModuleCategoryRepository.php
+│   │   ├── CategoryRepository.php
 │   │   ├── QueryOptions.php
 │   ├── Views
 │   │   ├── home
@@ -109,9 +109,9 @@ Stored procedure based php mvc project.
 │   ├── database
 │   │   ├── sql
 │   │   │   ├── procedures
-│   │   │   │   ├── sp_select_module_category.sql
+│   │   │   │   ├── sp_select_category.sql
 │   │   │   ├── tables
-│   │   │   │   ├── module_category.sql
+│   │   │   │   ├── category.sql
 ├── public
 │   ├── assets
 │   │   ├── css
