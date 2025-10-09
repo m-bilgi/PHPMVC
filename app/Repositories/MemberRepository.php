@@ -144,7 +144,7 @@ class MemberRepository
     public function update(QueryOptions $options, Member $model): bool
     {
         try {
-            $stmt = $this->pdo->prepare("CALL sp_update_member(:procType, :userId, :userFirstname, :userSurname, :userEmail, :username, :userPassword, :userLevel, :userTheme)");
+            $stmt = $this->pdo->prepare("CALL sp_update_member(:procType, :userId, :userFirstname, :userSurname, :userEmail, :username, :userPassword, :userLevel, :userStatus)");
             $stmt->bindValue(':procType', $options->procType);
             $stmt->bindValue(':userId', $model->id, PDO::PARAM_INT);
             $stmt->bindValue(':userFirstname', $model->name);
