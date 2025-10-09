@@ -4,15 +4,16 @@
 
 <?php section('content'); ?>
     <p>Hello, <?= htmlspecialchars($user) ?>.</p>
-    <p>Home page content was rendered with layout..</p>
+    <p>Home page content was rendered with layout...</p>
 <?php endsection(); ?>
 
     <p>Hello, <?= htmlspecialchars($user) ?>.</p>
-    <p>This page content was rendered Without layout..</p>
+    <p>This page content was rendered without layout..</p>
 
 <?php section('sidebar'); ?>
-<ul>
-    <li><a href="/category">Category</a></li>
-    <li>Nav 2</li>
-</ul>
+    <ul>
+        <li><a href="/render">Render view (without layout)</a></li>
+        <li><a href="/hello">Hello (Callback)</a></li>
+        <li><a href="/user/1">Url Parameter</a></li>
+    </ul>
 <?php endsection(); ?>
