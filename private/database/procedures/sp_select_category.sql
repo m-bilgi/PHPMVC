@@ -15,15 +15,15 @@ CREATE PROCEDURE sp_select_category (
 BEGIN
 	/* start default */
 	IF (procType = 'cat') THEN
-		SELECT	module_category.*
-		FROM	module_category
-		WHERE	(module_category.id=categoryId);
+		SELECT	category.*
+		FROM	category
+		WHERE	(category.id=categoryId);
 	END IF;
 
 	IF (procType = 'catList') THEN
-		SELECT		module_category.*
-		FROM		module_category
-		ORDER BY	module_category.name;
+		SELECT		category.*
+		FROM		category
+		ORDER BY	category.name;
 	END IF;
 	/* end default */
 END//
