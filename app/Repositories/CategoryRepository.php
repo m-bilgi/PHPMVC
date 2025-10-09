@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use Core\{Database, Logger};
-use App\Models\ModuleCategory;
+use App\Models\Category;
 use PDO;
 
-class ModuleCategoryRepository
+class CategoryRepository
 {
     private PDO $pdo;
 
@@ -16,7 +16,7 @@ class ModuleCategoryRepository
         $this->pdo = Database::getConnection();
     }
 
-    private function bindSelectParams(\PDOStatement $stmt, QueryOptions $options, ModuleCategory $model): void
+    private function bindSelectParams(\PDOStatement $stmt, QueryOptions $options, Category $model): void
     {
         $stmt->bindValue(':procType', $options->procType);
         $stmt->bindValue(':langValue', $options->langValue);
@@ -33,10 +33,10 @@ class ModuleCategoryRepository
      * @param ModuleCategory $model object
      * @return ModuleCategory|null
      */
-    public function select(QueryOptions $options, ModuleCategory $model): ?ModuleCategory
+    public function select(QueryOptions $options, Category $model): ?Category
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_select_module_category(:procType, :langValue, :categoryId, :categoryUrl, :categoryStatus)');
+            $stmt = $this->pdo->prepare('CALL sp_select_category(:procType, :langValue, :categoryId, :categoryUrl, :categoryStatus)');
             $this->bindSelectParams($stmt, $options, $model);
             $stmt->execute();
 
@@ -48,11 +48,11 @@ class ModuleCategoryRepository
                 return null;
             }
 
-            return ModuleCategory::fromArray($row);
+            return Category::fromArray($row);
         } catch (\Throwable $th) {
             // Error catching and logging
             if ($_ENV['APP_DEV_MODE']) {
-                Logger::error('ModuleCategoryRepository: ' . $th->getMessage());
+                Logger::error('CategoryRepository: ' . $th->getMessage());
             }
             return null;
         }
@@ -66,10 +66,10 @@ class ModuleCategoryRepository
      * @param ModuleCategory $model object
      * @return array - ModuleCategory[]|[]
      */
-    public function selectList(QueryOptions $options, ModuleCategory $model): array
+    public function selectList(QueryOptions $options, Category $model): array
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_select_module_category(:procType, :langValue, :moduleId, :categoryUrl, :categoryStatus)');
+            $stmt = $this->pdo->prepare('CALL sp_select_category(:procType, :langValue, :moduleId, :categoryUrl, :categoryStatus)');
             $this->bindSelectParams($stmt, $options, $model);
             $stmt->execute();
 
@@ -77,7 +77,7 @@ class ModuleCategoryRepository
 
             $result = [];
             foreach ($rows as $row) {
-                $result[] = ModuleCategory::fromArray($row);
+                $result[] = Category::fromArray($row);
             }
 
             // In PDO stored procedure calls, the buffer must be cleared to avoid problems in subsequent queries.
@@ -87,7 +87,7 @@ class ModuleCategoryRepository
         } catch (\Throwable $th) {
             // Error catching and logging
             if ($_ENV['APP_DEV_MODE']) {
-                Logger::error('ModuleCategoryRepository: ' . $th->getMessage());
+                Logger::error('CategoryRepository: ' . $th->getMessage());
             }
             return [];
         }
@@ -102,10 +102,10 @@ class ModuleCategoryRepository
      * @param ModuleCategory $model object
      * @return bool - true|false
      */
-    public function insert(QueryOptions $options, ModuleCategory $model): bool
+    public function insert(QueryOptions $options, Category $model): bool
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_insert_module_category(:procType, :categoryName, :categoryHit, :categoryImage, :categorySortOrder, :categoryUrl, :categoryStatus)');
+            $stmt = $this->pdo->prepare('CALL sp_insert_category(:procType, :categoryName, :categoryHit, :categoryImage, :categorySortOrder, :categoryUrl, :categoryStatus)');
             $stmt->bindValue(':procType', $options->procType);
             $stmt->bindValue(':categoryName', $model->name);
             $stmt->bindValue(':categoryHit', $model->hit, PDO::PARAM_INT);
@@ -121,7 +121,7 @@ class ModuleCategoryRepository
         } catch (\Throwable $th) {
             // Error catching and logging
             if ($_ENV['APP_DEV_MODE']) {
-                Logger::error('ModuleCategoryRepository: ' . $th->getMessage());
+                Logger::error('CategoryRepository: ' . $th->getMessage());
             }
             return false;
         }
@@ -136,10 +136,10 @@ class ModuleCategoryRepository
      * @param ModuleCategory $model object
      * @return bool - true|false
      */
-    public function update(QueryOptions $options, ModuleCategory $model): bool
+    public function update(QueryOptions $options, Category $model): bool
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_update_module_category(:procType, :categoryId, :categoryName, :categoryHit, :categoryImage, :categorySortOrder, :categoryUrl, :categoryStatus)');
+            $stmt = $this->pdo->prepare('CALL sp_update_category(:procType, :categoryId, :categoryName, :categoryHit, :categoryImage, :categorySortOrder, :categoryUrl, :categoryStatus)');
             $stmt->bindValue(':procType', $options->procType);
             $stmt->bindValue(':categoryId', $model->id, PDO::PARAM_INT);
             $stmt->bindValue(':categoryName', $model->name);
@@ -156,7 +156,7 @@ class ModuleCategoryRepository
         } catch (\Throwable $th) {
             // Error catching and logging
             if ($_ENV['APP_DEV_MODE']) {
-                Logger::error('ModuleCategoryRepository: ' . $th->getMessage());
+                Logger::error('CategoryRepository: ' . $th->getMessage());
             }
             return false;
         }
@@ -174,7 +174,7 @@ class ModuleCategoryRepository
     public function delete(int $id): bool
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_delete_module_category(:categoryId)');
+            $stmt = $this->pdo->prepare('CALL sp_delete_category(:categoryId)');
             $stmt->bindValue(':categoryId', $id, PDO::PARAM_INT);
 
             $result = $stmt->execute();
@@ -184,7 +184,7 @@ class ModuleCategoryRepository
         } catch (\Throwable $th) {
             // Error catching and logging
             if ($_ENV['APP_DEV_MODE']) {
-                Logger::error('ModuleCategoryRepository: ' . $th->getMessage());
+                Logger::error('CategoryRepository: ' . $th->getMessage());
             }
             return false;
         }
