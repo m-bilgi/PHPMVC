@@ -26,6 +26,7 @@ class MemberRepository
         $stmt->bindValue(':username', $model->username);
         $stmt->bindValue(':userPassword', $model->password);
         $stmt->bindValue(':userLevel', $model->level, PDO::PARAM_INT);
+        $stmt->bindValue(':userStatus', $model->status, PDO::PARAM_INT);
     }
 
     /**
@@ -39,7 +40,7 @@ class MemberRepository
     public function select(QueryOptions $options, Member $model): ?Member
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_select_member(:procType, :anyValue01, :anyValue02, :userId, :userGuid, :userEmail, :username, :userPassword, :userLevel, :userActivationKey, :userRegisterDate)');
+            $stmt = $this->pdo->prepare('CALL sp_select_member(:procType, :anyValue01, :anyValue02, :userId, :userEmail, :username, :userPassword, :userLevel, :userStatus)');
             $this->bindSelectParams($stmt, $options, $model);
             $stmt->execute();
 
@@ -72,7 +73,7 @@ class MemberRepository
     public function selectList(QueryOptions $options, Member $model): array
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_select_member(:procType, :anyValue01, :anyValue02, :userId, :userGuid, :userEmail, :username, :userPassword, :userLevel, :userActivationKey, :userRegisterDate)');
+            $stmt = $this->pdo->prepare('CALL sp_select_member(:procType, :anyValue01, :anyValue02, :userId, :userEmail, :username, :userPassword, :userLevel, :userStatus)');
             $this->bindSelectParams($stmt, $options, $model);
             $stmt->execute();
 
