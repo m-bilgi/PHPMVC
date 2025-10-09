@@ -1,5 +1,6 @@
-<h1>Site Header</h1>
+<h1><a href="/">Site Header</a></h1>
 <nav>
-    <a href="/">Home Page</a> | 
-    <a href="/hello">Hello</a>
+    <a href="/render">Render view (without layout)</a> | 
+    <a href="/hello">Hello (Callback)</a> | 
+    <a href="/user/1">Url Parameter</a>
 </nav>
