@@ -105,9 +105,8 @@ class ModuleCategoryRepository
     public function insert(QueryOptions $options, ModuleCategory $model): bool
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_insert_module_category(:procType, :categoryGuid, :categoryName, :categoryHit, :categoryImage, :categorySortOrder, :categoryUrl, :categoryStatus)');
+            $stmt = $this->pdo->prepare('CALL sp_insert_module_category(:procType, :categoryName, :categoryHit, :categoryImage, :categorySortOrder, :categoryUrl, :categoryStatus)');
             $stmt->bindValue(':procType', $options->procType);
-            $stmt->bindValue(':categoryGuid', $model->guid);
             $stmt->bindValue(':categoryName', $model->name);
             $stmt->bindValue(':categoryHit', $model->hit, PDO::PARAM_INT);
             $stmt->bindValue(':categoryImage', $model->image);
@@ -140,10 +139,9 @@ class ModuleCategoryRepository
     public function update(QueryOptions $options, ModuleCategory $model): bool
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_update_module_category(:procType, :categoryId, :categoryGuid, :categoryName, :categoryHit, :categoryImage, :categorySortOrder, :categoryUrl, :categoryStatus)');
+            $stmt = $this->pdo->prepare('CALL sp_update_module_category(:procType, :categoryId, :categoryName, :categoryHit, :categoryImage, :categorySortOrder, :categoryUrl, :categoryStatus)');
             $stmt->bindValue(':procType', $options->procType);
             $stmt->bindValue(':categoryId', $model->id, PDO::PARAM_INT);
-            $stmt->bindValue(':categoryGuid', $model->guid);
             $stmt->bindValue(':categoryName', $model->name);
             $stmt->bindValue(':categoryHit', $model->hit, PDO::PARAM_INT);
             $stmt->bindValue(':categoryImage', $model->image);
