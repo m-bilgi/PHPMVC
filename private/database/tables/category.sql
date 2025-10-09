@@ -2,7 +2,7 @@
 /*** Last Update: 01.09.2025 ***/
 /*** MSSQL to MySQL DataType Convert: https://dev.mysql.com/doc/workbench/en/wb-migration-database-mssql-typemapping.html ***/
 
-CREATE TABLE module_category (
+CREATE TABLE category (
 	`id` smallint UNSIGNED NOT NULL AUTO_INCREMENT,
 	`guid` varchar(64) NOT NULL,
 	`name` varchar(100) NULL,
