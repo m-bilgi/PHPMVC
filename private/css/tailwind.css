@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --breakpoint-3xl: 120rem;
+    --breakpoint-4xl: 160rem;
+    --breakpoint-5xl: 240rem;
+}
+@layer base {
+    html {@apply scroll-smooth;}
+    body {@apply bg-gray-100 dark:bg-gray-900;}
+    main {@apply bg-white dark:bg-gray-700;}
+    h1 {@apply text-2xl lg:text-3xl font-medium;}
+    h2 {@apply text-xl lg:text-2xl font-bold;}
+    h3 {@apply md:text-lg lg:text-xl font-bold;}
+    h4 {@apply font-medium;}
+    h5 {@apply lg:text-lg font-bold;}
+    h6 {@apply font-bold;}
+}
+@custom-variant dark (&:where(.dark, .dark *));
