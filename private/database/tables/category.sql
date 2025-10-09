@@ -14,9 +14,9 @@ CREATE TABLE category (
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO module_category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (1, 'Biographies', 440345, NULL, 0, 1, 'biyografiler');
-INSERT INTO module_category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (2, 'Art and Philosophy', 83568, NULL, 0, 1, 'sanat-ve-felsefe');
-INSERT INTO module_category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (3, 'Literature', 67849, NULL, 0, 1, 'edebiyat');
-INSERT INTO module_category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (4, 'Poetry', 4365, NULL, 0, 1, 'siirler');
-INSERT INTO module_category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (5, 'Articles and Research', 1885111, NULL, 0, 1, 'makale-ve-arastirmalar');
-INSERT INTO module_category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (6, 'Art Movements', 54870, NULL, 0, 1, 'sanat-akimlari');
+INSERT INTO category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (1, 'Biographies', 440345, NULL, 0, 1, 'biyografiler');
+INSERT INTO category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (2, 'Art and Philosophy', 83568, NULL, 0, 1, 'sanat-ve-felsefe');
+INSERT INTO category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (3, 'Literature', 67849, NULL, 0, 1, 'edebiyat');
+INSERT INTO category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (4, 'Poetry', 4365, NULL, 0, 1, 'siirler');
+INSERT INTO category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (5, 'Articles and Research', 1885111, NULL, 0, 1, 'makale-ve-arastirmalar');
+INSERT INTO category (`id`, `name`, `hit`, `image`, `sort_order`, `status`, `url`) VALUES (6, 'Art Movements', 54870, NULL, 0, 1, 'sanat-akimlari');
