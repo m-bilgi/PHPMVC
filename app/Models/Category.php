@@ -5,7 +5,7 @@ namespace App\Models;
 
 use DateTime;
 
-class ModuleCategory extends BaseModel
+class Category extends BaseModel
 {
   public ?int $id = null;
 	public ?int $module_id = null;
