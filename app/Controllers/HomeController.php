@@ -13,7 +13,6 @@ class HomeController
             'user'  => 'Mustafa'
         ];
         return View::renderWithLayout('home/index.php', 'layouts/main.php', $data);
-        //return View::renderWithLayout('home/index.php', 'layouts/main.php', ['user' => 'Mustafa'])
     }
 
     // Without Layout Retun
@@ -28,6 +27,6 @@ class HomeController
 
     public function show(string $id): string
     {
-        return "User Id: " . htmlspecialchars($id);
+        return "<p>This page was rendered without layout.</p>User Id: " . htmlspecialchars($id);
     }
 }
