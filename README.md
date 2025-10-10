@@ -52,6 +52,9 @@ Stored procedure based php mvc project.
   ENV: /.env
   echo $_ENV['APP_DEV_MODE'];
   ```
+- Security
+  - CSRF Token
+  - Signature key (sha256)
 - Tailwind CSS
 
 # Required
