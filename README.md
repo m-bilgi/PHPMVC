@@ -7,6 +7,11 @@ Stored procedure based php mvc project.
 - Layout
 - View
   - Section
+    ```bash
+    <?php section('title'); ?>
+        Home Page
+    <?php endsection(); ?>
+    ```
   - Yield(s)
   - Include
   ```bash
