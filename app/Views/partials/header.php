@@ -1,5 +1,5 @@
 <h1><a href="/">Site Header</a></h1>
 <nav>
-    <a href="/categories">Category</a> | 
-    <a href="/members">Members</a>
+    <a href="/category">Category</a> | 
+    <a href="javascript:;">Members</a>
 </nav>
