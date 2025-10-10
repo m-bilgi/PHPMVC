@@ -81,6 +81,7 @@ Stored procedure based php mvc project.
 ├── app
 │   ├── Controllers
 │   │   ├── HomeController.php
+│   │   ├── CategoryController.php
 │   ├── Models
 │   │   ├── BaseModel.php
 │   │   ├── Category.php
