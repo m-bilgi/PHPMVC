@@ -51,12 +51,61 @@ if (!function_exists('config')) {
             $config = require __DIR__ . '/config.php';
         }
 
-        // Tüm config değerlerini istiyorsa
+        // If you want all the config values
         if ($key === null) {
             return $config;
         }
 
-        // Tek bir anahtar istiyorsa
+        // If you want a single key
         return $config[$key] ?? $default;
+    }
+}
+
+if (!function_exists('csrf_token')) {
+    function csrf_token(): string
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
+        return $_SESSION['csrf_token'];
+    }
+}
+
+if (!function_exists('csrf_field')) {
+    function csrf_field(): string
+    {
+        return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars(csrf_token(), ENT_QUOTES) . '">';
+    }
+}
+
+if (!function_exists('check_csrf')) {
+    function check_csrf(string $token): bool
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+    }
+}
+
+if (!function_exists('sign_guid')) {
+    function sign_guid(string $id): string
+    {
+        $secretKey = $_ENV['APP_KEY'] ?? 'default_secret_key';
+        return hash_hmac('sha256', $id, $secretKey);
+    }
+}
+
+if (!function_exists('verify_guid')) {
+    function verify_guid(string $id, string $signature): bool
+    {
+        $expected = sign_guid($id);
+        return hash_equals($expected, $signature);
     }
 }
