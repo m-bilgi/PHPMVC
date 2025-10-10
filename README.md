@@ -81,10 +81,21 @@ Stored procedure based php mvc project.
 │   ├── Models
 │   │   ├── BaseModel.php
 │   │   ├── Category.php
+│   │   ├── Member.php
 │   ├── Repositories
 │   │   ├── CategoryRepository.php
+│   │   ├── MemberRepository.php
 │   │   ├── QueryOptions.php
+│   ├── Services
+│   │   ├── CategoryService.php
 │   ├── Views
+│   │   ├── category
+│   │   │   ├── partials
+│   │   │   │   ├── sidebar.php
+│   │   │   ├── edit.php
+│   │   │   ├── index.php
+│   │   │   ├── insert.php
+│   │   │   ├── show.php
 │   │   ├── home
 │   │   │   ├── index.php
 │   │   ├── layouts
@@ -93,6 +104,7 @@ Stored procedure based php mvc project.
 │   │   │   ├── footer.php
 │   │   │   ├── header.php
 ├── core
+│   ├── Cache.php
 │   ├── config.php
 │   ├── Database.php
 │   ├── env.php
@@ -103,15 +115,18 @@ Stored procedure based php mvc project.
 │   ├── ServiceResponse.php
 │   ├── View.php
 ├── private (Do not publish the folder.)
-│   ├── cache
 │   ├── css
 │   │   ├── tailwind.css
 │   ├── database
 │   │   ├── sql
 │   │   │   ├── procedures
+│   │   │   │   ├── sp_insert_category.sql
 │   │   │   │   ├── sp_select_category.sql
+│   │   │   │   ├── sp_select_member.sql
+│   │   │   │   ├── sp_update_category.sql
 │   │   │   ├── tables
 │   │   │   │   ├── category.sql
+│   │   │   │   ├── member.sql
 ├── public
 │   ├── assets
 │   │   ├── css
@@ -120,10 +135,14 @@ Stored procedure based php mvc project.
 │   │   │   ├── script.js
 │   ├── index.php
 ├── storage
+│   ├── cache
+│   │   ├── index.html
 │   ├── logs
 │   │   ├── app.log
 ├── .env
 ├── composer.json
 ├── package.json
+├── README.md
 ├── routes.php
+├── tailwind.config.js
 ```
