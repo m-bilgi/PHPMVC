@@ -13,8 +13,8 @@ class Member extends BaseModel
 	public ?string $email = null;
 	public ?string $username = null;
 	public ?string $password = null;
-	public ?int $level = null;
-	public ?int $status = null;
+	public ?int $level = 1;
+	public ?int $status = 1;
 
 	protected static array $casts = [
 		'id' => 'int',
