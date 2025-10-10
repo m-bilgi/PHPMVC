@@ -8,7 +8,7 @@ class Cache
     private string $cachePath;
     private int $defaultTtl;
 
-    public function __construct(string $path = __DIR__ . '/../private/cache', int $defaultTtl = 300)
+    public function __construct(string $path = __DIR__ . '/../storage/cache', int $defaultTtl = 300)
     {
         $this->cachePath = rtrim($path, '/');
         $this->defaultTtl = $defaultTtl;
