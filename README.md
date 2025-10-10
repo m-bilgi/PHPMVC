@@ -13,23 +13,22 @@ Stored procedure based php mvc project.
     <?php endsection(); ?>
     ```
   - Yield(s)
+    ```bash
+    Default usage:
+    <?= yieldContent('content'); ?>
+
+    If section("title") is empty, show default:
+    <?= yieldContent('title', 'PHP MVC'); ?>
+
+    If section("sidebar") is not defined, show the default:
+    <?php yieldContentOr('sidebar', function () { ?>
+        <p>Default sidebar.</p>
+    <?php }); ?>
+    ```
   - Include
-  ```bash
-  SECTION
-  <?php section('title'); ?>
-      Home Page
-  <?php endsection(); ?>
-
-  YIELD
-  <?= yieldContent('title', 'PHP MVC'); ?>
-  <?= yieldContent('content'); ?>
-  <?php yieldContentOr('sidebar', function () { ?>
-      <p>Default sidebar.</p>
-  <?php }); ?>
-
-  INCLUDE
-  <?= includeFile('partials/footer.php'); ?>
-  ```
+    ```bash
+    <?= includeFile('partials/footer.php'); ?>
+    ```
 - Caching (file-based)
   ```bash
   use Core\Cache;
