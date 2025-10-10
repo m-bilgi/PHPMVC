@@ -9,11 +9,11 @@ class Category extends BaseModel
 {
 	public ?int $id = null;
 	public ?string $name = null;
-	public ?int $hit = null;
+	public ?int $hit = 0;
 	public ?string $image = null;
-	public ?int $sort_order = null;
+	public ?int $sort_order = 0;
 	public ?string $url = null;
-	public ?int $status = null;
+	public ?int $status = 1;
 
     protected static array $casts = [
         'id' => 'int',
