@@ -69,12 +69,11 @@ class CategoryRepository
     public function selectList(QueryOptions $options, Category $model): array
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_select_category(:procType, :langValue, :moduleId, :categoryUrl, :categoryStatus)');
+            $stmt = $this->pdo->prepare('CALL sp_select_category(:procType, :langValue, :categoryId, :categoryUrl, :categoryStatus)');
             $this->bindSelectParams($stmt, $options, $model);
             $stmt->execute();
 
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
             $result = [];
             foreach ($rows as $row) {
                 $result[] = Category::fromArray($row);
@@ -171,11 +170,12 @@ class CategoryRepository
      * @param ModuleCategory $model object
      * @return bool - true|false
      */
-    public function delete(int $id): bool
+    public function delete(QueryOptions $options, Category $model): bool
     {
         try {
-            $stmt = $this->pdo->prepare('CALL sp_delete_category(:categoryId)');
-            $stmt->bindValue(':categoryId', $id, PDO::PARAM_INT);
+            $stmt = $this->pdo->prepare('CALL sp_delete_category(:procType, :categoryId)');
+            $stmt->bindValue(':procType', $options->procType);
+            $stmt->bindValue(':categoryId', $model->id, PDO::PARAM_INT);
 
             $result = $stmt->execute();
             $stmt->closeCursor();
