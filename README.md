@@ -40,6 +40,8 @@ Stored procedure based php mvc project.
   - Include
     ```bash
     <?= includeFile('partials/footer.php'); ?>
+    -- or --
+    <?= includeFile('partials/header.php', ['title'=>'Home Page']); ?>
     ```
 - Caching (file-based)
   ```bash
