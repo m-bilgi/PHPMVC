@@ -17,6 +17,7 @@ class CategoryController
     // Return operation using Service Response.
     public function index()
     {
+        $title = 'Category page';
         $errorMsg = null;
         $serviceResponse = $this->service->getAll();
         if ($serviceResponse->success) {
@@ -25,14 +26,16 @@ class CategoryController
             $errorMsg = $serviceResponse->message ?? 'An unexpected error occurred.';
         }
 
-        return View::renderWithLayout('category/index.php', 'layouts/main.php', ['dataList' => $dataList, $errorMsg]);
+        return View::renderWithLayout('category/index.php', 'layouts/main.php', ['title' => $title, 'dataList' => $dataList, 'errorMsg' => $errorMsg]);
     }
 
     public function show(string $slug)
     {
         $data = $this->service->getByUrl($slug);
 
-        return View::renderWithLayout('category/show.php', 'layouts/main.php', ['data' => $data]);
+        $title = 'Category: ' . $data->name;
+
+        return View::renderWithLayout('category/show.php', 'layouts/main.php', ['title' => $title, 'data' => $data]);
     }
 
     public function edit(string $slug)
@@ -40,7 +43,9 @@ class CategoryController
         $data = $this->service->getByUrl($slug);
         $data->signature = sign_guid($data->id);
 
-        return View::renderWithLayout('category/edit.php', 'layouts/main.php', ['data' => $data]);
+        $title = 'Edit page: '. $data->name;
+
+        return View::renderWithLayout('category/edit.php', 'layouts/main.php', ['title' => $title,'data' => $data]);
     }
 
     public function editPost(): void
@@ -78,7 +83,8 @@ class CategoryController
 
     public function insert()
     {
-        return View::renderWithLayout('category/insert.php', 'layouts/main.php');
+        $title = 'Category insert page';
+        return View::renderWithLayout('category/insert.php', 'layouts/main.php', ['title' => $title]);
     }
 
     public function insertPost(): void
@@ -114,7 +120,9 @@ class CategoryController
         $data = $this->service->getByUrl($slug);
         $data->signature = sign_guid($data->id);
 
-        return View::renderWithLayout('category/delete.php', 'layouts/main.php', ['data' => $data]);
+        $title = 'Delete page: '. $data->name;
+
+        return View::renderWithLayout('category/delete.php', 'layouts/main.php', ['title' => $title, 'data' => $data]);
     }
 
     public function deletePost(): void
