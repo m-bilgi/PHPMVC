@@ -1,6 +1,4 @@
-<?php section('title'); ?>
-    Category Insert
-<?php endsection(); ?>
+<?php section('title', 'Category insert page'); ?>
 
 <?php section('content'); ?>
     <h2 class="flex pb-5 gap-2">Add new category</h2>
