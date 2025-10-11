@@ -101,10 +101,8 @@ Stored procedure based php mvc project.
 │   ├── Models
 │   │   ├── BaseModel.php
 │   │   ├── Category.php
-│   │   ├── Member.php
 │   ├── Repositories
 │   │   ├── CategoryRepository.php
-│   │   ├── MemberRepository.php
 │   │   ├── QueryOptions.php
 │   ├── Services
 │   │   ├── CategoryService.php
@@ -142,11 +140,9 @@ Stored procedure based php mvc project.
 │   │   │   ├── procedures
 │   │   │   │   ├── sp_insert_category.sql
 │   │   │   │   ├── sp_select_category.sql
-│   │   │   │   ├── sp_select_member.sql
 │   │   │   │   ├── sp_update_category.sql
 │   │   │   ├── tables
 │   │   │   │   ├── category.sql
-│   │   │   │   ├── member.sql
 ├── public
 │   ├── assets
 │   │   ├── css
