@@ -4,9 +4,26 @@ declare(strict_types=1);
 use Core\View;
 
 if (!function_exists('section')) {
-    function section(string $name): void
+    function section(string $name, $content = null): void
     {
+        // If there is no content parameter, initialize it for multi-line use.
+        if ($content === null) {
+            View::startSection($name);
+            return;
+        }
+
+        // Single-line or callable content
         View::startSection($name);
+
+        if (is_callable($content)) {
+            // If callable, execute (output will be captured)
+            $content();
+        } else {
+            // If it is a string or other type, echo it directly.
+            echo $content;
+        }
+
+        View::endSection();
     }
 }
 
