@@ -1,4 +1,4 @@
-<?php section('title', 'Category Page'); ?>
+<?php section('title', htmlspecialchars($title)); ?>
 
 <?php
 section('content');
