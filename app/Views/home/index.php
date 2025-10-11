@@ -13,7 +13,7 @@
 <?php section('sidebar'); ?>
     <ul>
         <li><a href="/render">Render view (without layout)</a></li>
-        <li><a href="/hello">Hello (Callback)</a></li>
-        <li><a href="/user/1">Url Parameter</a></li>
+        <li><a href="/hello">Hello (Callback) (without layout)</a></li>
+        <li><a href="/user/1">Url Parameter (without layout)</a></li>
     </ul>
 <?php endsection(); ?>
