@@ -1,1 +1,1 @@
-<p>&copy; <?= date('Y') ?> Tüm Hakları Saklıdır.</p>
+<p>&copy; <?= date('Y') ?> All rights reserved.</p>
