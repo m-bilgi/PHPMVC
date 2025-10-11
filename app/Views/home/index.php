@@ -1,6 +1,4 @@
-<?php section('title'); ?>
-    Home Page
-<?php endsection(); ?>
+<?php section('title', htmlspecialchars($title)); ?>
 
 <?php section('content'); ?>
     <p>Hello, <?= htmlspecialchars($user) ?>.</p>
