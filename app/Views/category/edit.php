@@ -1,4 +1,4 @@
-<?php section('title', 'Edit page: ' . $data->name); ?>
+<?php section('title', htmlspecialchars($title)); ?>
 
 <?php section('content'); ?>
     <h2 class="flex pb-5 gap-2"><?= $data->name ?></h2>
