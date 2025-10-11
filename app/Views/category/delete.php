@@ -1,6 +1,4 @@
-<?php section('title'); ?>
-    <?= $data->name ?>
-<?php endsection(); ?>
+<?php section('title', 'Delete page: '. $data->name); ?>
 
 <?php section('content'); ?>
     <h2 class="flex pb-5 gap-2"><?= $data->name ?></h2>
