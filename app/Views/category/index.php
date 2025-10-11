@@ -1,6 +1,4 @@
-<?php section('title'); ?>
-    Category Page
-<?php endsection(); ?>
+<?php section('title', 'Category Page'); ?>
 
 <?php
 section('content');
