@@ -1,4 +1,4 @@
-<?php section('title', 'Category: ' . $data->name); ?>
+<?php section('title', htmlspecialchars($title)); ?>
 
 <?php section('content'); ?>
     <h2 class="flex pb-5 gap-2">
