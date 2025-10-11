@@ -8,9 +8,21 @@ Stored procedure based php mvc project.
 - View
   - Section
     ```bash
-    <?php section('title'); ?>
-        Home Page
+    <?php section('title', 'Home Page'); ?>
+    -- or --
+    <?php section('sidebar'); ?>
+        <ul>
+          <li>Link 1</li>
+          <li>Link 2</li>
+        </ul>
     <?php endsection(); ?>
+
+    If section("sidebar") is not defined, show the default:
+    <?php section('sidebar', function() { ?>
+        <ul>
+            <li>Link 1</li>
+        </ul>
+    <?php }); ?>
     ```
   - Yield(s)
     ```bash
