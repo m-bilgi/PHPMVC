@@ -3,7 +3,7 @@ namespace Core;
 
 class Router
 {
-    protected array $routes = [];
+    private array $routes = [];
 
     public function get(string $uri, $action): void
     {
@@ -15,72 +15,104 @@ class Router
         $this->addRoute('POST', $uri, $action);
     }
 
-    protected function addRoute(string $method, string $uri, $action): void
+    private function addRoute(string $method, string $uri, $action): void
     {
-        $uri = $this->normalize($uri);
-
-        // Convert {param} parts to regex
-        $pattern = preg_replace('#\{([a-zA-Z_][a-zA-Z0-9_]*)\}#', '(?P<\1>[^/]+)', $uri);
-        $pattern = '#^' . $pattern . '$#';
+        $uri = trim($uri, '/');
+        $segments = $uri === '' ? [] : explode('/', $uri);
 
         $this->routes[$method][] = [
-            'pattern' => $pattern,
-            'action'  => $action
+            'segments' => $segments,
+            'action' => $action
         ];
-    }
-
-    protected function normalize(string $uri): string
-    {
-        $path = parse_url($uri, PHP_URL_PATH) ?? $uri;
-        $path = '/' . trim($path, '/');
-        return $path === '/' ? '/' : rtrim($path, '/');
     }
 
     public function dispatch(string $uri, string $method): void
     {
-        $uri = $this->normalize($uri);
-        $methodRoutes = $this->routes[$method] ?? [];
+        $uri = trim($uri, '/');
+        $uriSegments = $uri === '' ? [] : explode('/', $uri);
 
-        foreach ($methodRoutes as $route) {
-            if (preg_match($route['pattern'], $uri, $matches)) {
-                $action = $route['action'];
+        //echo "<pre>Request::uri() = /$uri</pre>";
 
-                // Capture parameters
-                $params = [];
-                foreach ($matches as $key => $value) {
-                    if (is_string($key)) {
-                        $params[$key] = $value;
-                    }
-                }
+        $routes = $this->routes[$method] ?? [];
 
-                if (is_callable($action)) {
-                    echo call_user_func_array($action, $params);
-                    return;
-                }
-
-                if (is_string($action)) {
-                    [$controllerShort, $methodName] = explode('@', $action);
-                    $controller = str_contains($controllerShort, '\\')
-                        ? $controllerShort
-                        : 'App\\Controllers\\' . $controllerShort;
-
-                    if (!class_exists($controller)) {
-                        throw new \Exception("Controller {$controller} not found.");
-                    }
-
-                    $instance = new $controller();
-
-                    if (!method_exists($instance, $methodName)) {
-                        throw new \Exception("Method {$methodName} not found in {$controller}.");
-                    }
-
-                    echo call_user_func_array([$instance, $methodName], $params);
-                    return;
-                }
+        foreach ($routes as $route) {
+            $params = [];
+            if ($this->match($uriSegments, $route['segments'], $params)) {
+                $this->runAction($route['action'], $params);
+                return;
             }
         }
 
         http_response_code(404);
-        echo "404 Not Found";
+        echo "<h3>404 Not Found</h3>";
+        echo "<pre>Available routes:\n";
+        foreach ($routes as $r) {
+            echo '/' . implode('/', $r['segments']) . "\n";
+        }
+        echo "</pre>";
+    }
+
+    private function match(array $uriSegments, array $routeSegments, array &$params): bool
+    {
+        $params = [];
+        $uriCount = count($uriSegments);
+        $routeCount = count($routeSegments);
+
+        // Optional parameters must be in the last segment
+        if ($uriCount > $routeCount) return false;
+
+        for ($i = 0; $i < $routeCount; $i++) {
+            $routePart = $routeSegments[$i];
+            $uriPart = $uriSegments[$i] ?? null;
+
+            // Optional parameter {param?}
+            if (preg_match('/^\{([a-zA-Z_][a-zA-Z0-9_]*)\?\}$/', $routePart, $m)) {
+                if ($uriPart !== null) {
+                    $params[$m[1]] = $uriPart;
+                } else {
+                    $params[$m[1]] = null;
+                }
+                continue;
+            }
+
+            // Required parameter {param}
+            if (preg_match('/^\{([a-zA-Z_][a-zA-Z0-9_]*)\}$/', $routePart, $m)) {
+                if ($uriPart === null) return false;
+                $params[$m[1]] = $uriPart;
+                continue;
+            }
+
+            // Straight segment matching
+            if ($routePart !== $uriPart) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function runAction($action, array $params): void
+    {
+        if (is_callable($action)) {
+            echo call_user_func_array($action, $params);
+            return;
+        }
+
+        if (is_string($action)) {
+            [$controllerName, $methodName] = explode('@', $action);
+            $controller = 'App\\Controllers\\' . $controllerName;
+
+            if (!class_exists($controller)) {
+                throw new \Exception("Controller not found: {$controller}");
+            }
+
+            $instance = new $controller();
+
+            if (!method_exists($instance, $methodName)) {
+                throw new \Exception("Method not found: {$methodName}");
+            }
+
+            echo call_user_func_array([$instance, $methodName], $params);
+        }
     }
 }
