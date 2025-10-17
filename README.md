@@ -141,6 +141,7 @@ Stored procedure based php mvc project.
 │   │   ├── partials
 │   │   │   ├── footer.php
 │   │   │   ├── header.php
+│   │   │   ├── include-partial.php
 ├── core
 │   ├── Cache.php
 │   ├── config.php
