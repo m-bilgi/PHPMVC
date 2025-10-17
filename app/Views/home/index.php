@@ -3,6 +3,9 @@
 <?php section('content'); ?>
     <p>Hello, <?= htmlspecialchars($user) ?>.</p>
     <p>Home page content was rendered with layout...</p>
+
+    <?php Core\View::includePartial(['view' => 'partials/include-partial.php', 'controller' => 'HomeController', 'method' => 'partialData']); ?>
+
 <?php endsection(); ?>
 
     <p>Hello, <?= htmlspecialchars($user) ?>.</p>
