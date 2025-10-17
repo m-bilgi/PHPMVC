@@ -12,6 +12,16 @@
     <ul>
         <li><a href="/render">Render view (without layout)</a></li>
         <li><a href="/hello">Hello (Callback) (without layout)</a></li>
+    </ul>
+    <br>
+    <h2>Url Parameter</h2>
+    <ul>
         <li><a href="/user/1">Url Parameter (without layout)</a></li>
+    </ul>
+    <br>
+    <h2>Optional Url Parameter</h2>
+    <ul>
+        <li><a href="/show/articles">Optional Url Parameter (default) (without layout)</a></li>
+        <li><a href="/show/articles/3">Optional Url Parameter (pageNo=3) (without layout)</a></li>
     </ul>
 <?php endsection(); ?>
