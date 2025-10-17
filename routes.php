@@ -5,13 +5,17 @@ $router->get('/', 'HomeController@index');
 // Without layout
 $router->get('/render', 'HomeController@render');
 
+// Parameterized route example
+// For numeric value only: {id:\d+}
+$router->get('/user/{id}', 'HomeController@showId');
+
+// Optional Parameterized route example
+// Example: "show/article/" "show/article/1" "show/gallery/" "show/gallery/3"
+$router->get('/show/{category}/{pageNo?}', 'HomeController@optionalParameter');
+
 $router->get('/hello', function () {
     return '<p>Hello!</p><p>This page was rendered without layout.</p>Closure and route worked.';
 });
-
-// Parameterized route example
-// For numeric value only: {id:\d+}
-$router->get('/user/{id}', 'HomeController@show');
 
 // Category Pages
 $router->get('/category', 'CategoryController@index');
