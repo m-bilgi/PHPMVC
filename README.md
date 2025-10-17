@@ -53,7 +53,13 @@ Stored procedure based php mvc project.
     ```
   - Include partial
     ```bash
-    <?php Core\View::includePartial(['view' => 'partials/include-partial.php', 'controller' => 'HomeController', 'method' => 'partialData']); ?>
+    <?php
+    Core\View::includePartial([
+      'view' => 'partials/include-partial.php',
+      'controller' => 'HomeController',
+      'method' => 'partialData'
+    ]);
+    ?>
     ```
 - Caching (file-based)
   ```bash
