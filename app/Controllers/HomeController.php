@@ -25,8 +25,17 @@ class HomeController
         return View::render('home/index.php', $data);
     }
 
-    public function show(string $id): string
+    public function showId(string $id): string
     {
         return "<p>This page was rendered without layout.</p>User Id: " . htmlspecialchars($id);
+    }
+
+    public function optionalParameter(string $category, ?int $pageNo = 1): string
+    {
+        if ($pageNo < 1) $pageNo = 1;
+        return '<p>This page was rendered without layout.</p>' .
+                '<p>Category:' . htmlspecialchars($category) . '</p>' .
+                '<p>PageNo: '. $pageNo .'</p>' .
+                '<a href="/show/articles/1">1</a> | <a href="/show/articles/2">2</a> | <a href="/show/articles/3">3</a> | <a href="/show/articles/4">4</a> | <a href="/show/articles/5">5</a>';
     }
 }
