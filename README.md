@@ -3,7 +3,15 @@ Stored procedure based php mvc project.
 
 - Routes
   - GET, POST
-  - Parameterized route
+  - Parameterized & optional Parameterized route
+    ```bash
+    // /user/1
+    $router->get('/user/{id}', 'HomeController@showId');
+
+    // "show/articles/" -or- "show/articles/1" -or- "show/articles/2"
+    // "show/gallery/" -or- "show/gallery/1" -or- "show/gallery/2"
+    $router->get('/show/{category}/{pageNo?}', 'HomeController@optionalParameter');
+    ```
 - Layout
 - View
   - Section
