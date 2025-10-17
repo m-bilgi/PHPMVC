@@ -5,11 +5,10 @@ Stored procedure based php mvc project.
   - GET, POST
   - Parameterized & optional Parameterized route
     ```bash
-    // /user/1
+    Example: /user/1
     $router->get('/user/{id}', 'HomeController@showId');
 
-    // "show/articles/" -or- "show/articles/1" -or- "show/articles/2"
-    // "show/gallery/" -or- "show/gallery/1" -or- "show/gallery/2"
+    Example: "show/articles/" -or- "show/articles/1" -or- "show/articles/2"
     $router->get('/show/{category}/{pageNo?}', 'HomeController@optionalParameter');
     ```
 - Layout
@@ -53,13 +52,11 @@ Stored procedure based php mvc project.
     ```
   - Include partial
     ```bash
-    <?php
     Core\View::includePartial([
       'view' => 'partials/include-partial.php',
       'controller' => 'HomeController',
       'method' => 'partialData'
     ]);
-    ?>
     ```
 - Caching (file-based)
   ```bash
