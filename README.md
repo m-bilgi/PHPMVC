@@ -43,9 +43,10 @@ Stored procedure based php mvc project.
     <?= yieldContent('title', 'PHP MVC'); ?>
 
     If section("sidebar") is not defined, show the default:
-    <?php yieldContentOr('sidebar', function () { ?>
-        <p>Default sidebar.</p>
-    <?php }); ?>
+    <?php
+    yieldContentOr('sidebar', function () {
+      echo '<p>Default sidebar.</p>';
+    });
     ```
   - Include
     ```bash
