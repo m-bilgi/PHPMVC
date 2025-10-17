@@ -12,6 +12,9 @@ Stored procedure based php mvc project.
     $router->get('/show/{category}/{pageNo?}', 'HomeController@optionalParameter');
     ```
 - Layout
+  ```bash
+  return View::renderWithLayout('home/index.php', 'layouts/main.php', $data);
+  ```
 - View
   - Section
     ```bash
